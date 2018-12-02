@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{js/index1.js}" charset="utf-8"></script>
+    <link rel="stylesheet" th:href="@{css/index1.css}" type="text/css"/>
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h3>
+            Всемирная библиотека
+        </h3>
+    </div>
+    <div>
+        <h3>
+            <p id="vmaintext" class="mainText" readonly="readonly"> Добро пожаловать во всемирную библиотеку</p>
+        </h3>
+    </div>
+    <div>
+        <button>
+            <a href="#" id="go">Регистрация</a>
+        </button>
+        <button>
+            Войти в профиль
+        </button>
+
+    </div>
+    <div id="modal_form" style="display: none; top: 45%; opacity: 0;">
+        <span id="modal_close">X</span>
+        <!--<form id="authfrm">-->
+            <h3>Регистрация</h3>
+            <p>Ваш логин<br>
+                <input id="vloginreg" type="text" name="your-login" value="" size="35">
+            </p>
+            <p>Ваш пароль<br>
+                <input id="vpasswordreg" type="text" name="your-password" value="" size="35">
+            </p>
+            <p>Повторите пароль<br>
+                <input id="vpasswordRepeatreg" type="text" name="your-password-repeat" value="" size="35">
+            </p>
+            <p style="text-align: center; padding-bottom: 10px;">
+                <button type="submit" value="Отправить" id="submitbtn" onclick="regFunction()">Отправить</button>
+                <br>
+            </p>
+            <p style="display: none" id="vinvalidpass" >
+                Некорректные данные
+            </p>
+        <!--</form>-->
+    </div>
+    <div id="overlay" style="display: none;"></div>
+</body>
+</html>
+
+
+
+
