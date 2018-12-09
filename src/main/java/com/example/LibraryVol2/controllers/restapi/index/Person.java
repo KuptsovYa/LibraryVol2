@@ -1,4 +1,4 @@
-package com.example.LibraryVol2.controllers;
+package com.example.LibraryVol2.controllers.restapi.index;
 
 public class Person {
 

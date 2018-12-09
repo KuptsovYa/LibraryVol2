@@ -13,6 +13,11 @@ public class User {
 
     private String login;
     private String password;
+    private String UUId;
+
+    public String getUUId() { return UUId; }
+
+    public void setUUId(String UUId) { this.UUId = UUId; }
 
     public int getIdusers() { return idusers; }
 
@@ -43,18 +48,4 @@ public class User {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getIdusers() == user.getIdusers() &&
-                Objects.equals(getLogin(), user.getLogin()) &&
-                Objects.equals(getPassword(), user.getPassword());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getIdusers(), getLogin(), getPassword());
-    }
 }

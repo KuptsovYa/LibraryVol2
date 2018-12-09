@@ -6,8 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository{
 
-    User findByLogin(String Login);
-
+    void addAUser(String login, String password);
+    boolean checkEqualsLogin(String login);
+    boolean login(String login, String password);
 }

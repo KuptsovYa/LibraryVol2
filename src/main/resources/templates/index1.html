@@ -21,36 +21,59 @@
     </div>
     <div>
         <button>
-            <a href="#" id="go">Регистрация</a>
+            <a href="#" id="reg">Регистрация</a>
         </button>
         <button>
-            Войти в профиль
+            <a href="#" id="login">Войти в профиль</a>
         </button>
 
     </div>
-    <div id="modal_form" style="display: none; top: 45%; opacity: 0;">
-        <span id="modal_close">X</span>
-        <!--<form id="authfrm">-->
+    <div id="modal_form_reg" style="display: none; top: 45%; opacity: 0;">
+        <span id="modal_close_reg">X</span>
+        <form id="loginform" method="post" th:action="@{/profile}">
             <h3>Регистрация</h3>
             <p>Ваш логин<br>
-                <input id="vloginreg" type="text" name="your-login" value="" size="35">
+                <input id="vlogin_reg" type="text" name="your-login" value="" size="35">
             </p>
             <p>Ваш пароль<br>
-                <input id="vpasswordreg" type="text" name="your-password" value="" size="35">
+                <input id="vpassword_reg" type="text" name="your-password" value="" size="35">
             </p>
             <p>Повторите пароль<br>
-                <input id="vpasswordRepeatreg" type="text" name="your-password-repeat" value="" size="35">
+                <input id="vpasswordRepeat_reg" type="text" name="your-password-repeat" value="" size="35">
             </p>
             <p style="text-align: center; padding-bottom: 10px;">
-                <button type="submit" value="Отправить" id="submitbtn" onclick="regFunction()">Отправить</button>
+                <button type="submit" value="Отправить" id="submitbtn_reg" onclick="regFunction()">Отправить</button>
                 <br>
             </p>
-            <p style="display: none" id="vinvalidpass" >
+            <p style="display: none" id="vinvalidpass_reg" >
                 Некорректные данные
             </p>
-        <!--</form>-->
+        </form>
     </div>
-    <div id="overlay" style="display: none;"></div>
+    <div id="overlay_reg" style="display: none;"></div>
+
+
+    <div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">
+        <span id="modal_close_login">X</span>
+        <form id="regform" method="post" th:action="@{/profile}">
+        <h3>Войти в профиль</h3>
+        <p>Ваш логин<br>
+            <input id="vlogin_login" type="text" name="your-login" value="" size="35">
+        </p>
+        <p>Ваш пароль<br>
+            <input id="vpassword_login" type="text" name="your-password" value="" size="35">
+        </p>
+        <p style="text-align: center; padding-bottom: 10px;">
+            <button type="submit" value="Отправить" id="submitbtn" onclick="login()">Отправить</button>
+            <br>
+        </p>
+        <p style="display: none" id="vinvalidpass_login" >
+            Некорректные данные
+        </p>
+        </form>
+    </div>
+    <div id="overlay_login" style="display: none;"></div>
+
 </body>
 </html>
 
