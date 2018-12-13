@@ -19,14 +19,13 @@ public class IndexRestController {
     }
 
     @PutMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody Person person  ){
+    public ResponseEntity<?> registration(@RequestBody Person person ){
         userRepository.addAUser(person.getLogin(), person.getPassword());
         return ResponseEntity.ok(true);
     }
 
     @PutMapping("/loginCheck")
     public ResponseEntity<?> loginEqualsCheck(@RequestBody String login){
-        System.out.println(login + " has come to server");
         JacksonJsonParser jsonParser = new JacksonJsonParser();
         Map<String, Object> map = jsonParser.parseMap(login);
         Object s = map.get("login");

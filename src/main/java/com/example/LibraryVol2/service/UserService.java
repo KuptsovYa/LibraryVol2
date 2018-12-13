@@ -12,8 +12,12 @@ import java.util.Optional;
 @Service
 public class UserService implements UserRepository {
 
-    @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    public UserService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public void addAUser(String login, String password){
         System.out.println(login + " " + password );

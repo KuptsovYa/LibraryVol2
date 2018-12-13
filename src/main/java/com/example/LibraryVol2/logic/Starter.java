@@ -2,6 +2,7 @@ package com.example.LibraryVol2.logic;
 
 import com.example.LibraryVol2.controllers.restapi.profile.Book;
 import com.example.LibraryVol2.repository.BookRepository;
+import com.example.LibraryVol2.repository.WordsRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,12 +21,12 @@ public class Starter {
         this.stop = new AtomicBoolean(false);
     }
 
-    public void start(BookRepository bookRepository){
+    public void start(BookRepository bookRepository, WordsRepository wordsRepository){
         System.out.println(mainQueue.size());
         if(mainQueue.size() == 0 && consumers.isShutdown()){
             stop.set(true);
         }
-        consumers.submit(new Consumer(mainQueue, bookRepository, stop));
+        consumers.submit(new Consumer(mainQueue, bookRepository, wordsRepository, stop ));
     }
 
 }

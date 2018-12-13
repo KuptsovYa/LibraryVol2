@@ -10,11 +10,15 @@ import javax.sql.DataSource;
 @Service
 public class BookService  implements BookRepository {
 
-    @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    public BookService(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     public boolean addBook(String author, String title, String content){
-        System.out.println(author + "  " +title + "  " + content);
+//        System.out.println(author + "  " +title + "  " + content);
         String sql = "INSERT INTO books(author, title, content) VALUES (?,?,?)";
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.update(sql, author, title, content);

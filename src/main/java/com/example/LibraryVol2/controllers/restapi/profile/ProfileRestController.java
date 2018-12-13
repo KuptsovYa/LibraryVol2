@@ -1,12 +1,13 @@
 package com.example.LibraryVol2.controllers.restapi.profile;
 
+import com.example.LibraryVol2.controllers.restapi.index.Person;
 import com.example.LibraryVol2.logic.Starter;
 import com.example.LibraryVol2.repository.BookRepository;
+import com.example.LibraryVol2.repository.WordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -16,20 +17,21 @@ public class ProfileRestController {
     private final LinkedBlockingQueue<Book> mainQueue;
     private final Starter starter;
     private final BookRepository bookRepository;
+    private final WordsRepository wordsRepository;
 
     @Autowired
-    public ProfileRestController(BookRepository bookRepository){
+    public ProfileRestController(BookRepository bookRepository, WordsRepository wordsRepository){
+        this.wordsRepository = wordsRepository;
         this.bookRepository = bookRepository;
         this.mainQueue = new LinkedBlockingQueue<Book>();
         this.starter = new Starter(5, mainQueue);
     }
 
-    @PostMapping("/addBook")
-    public ResponseEntity<?> addBook(Book book){
-        Book testBook = new Book("Author", "Title", "Content");
-        mainQueue.add(testBook);
-        starter.start(bookRepository);
-        return ResponseEntity.ok("Book added to Lib");
+    @PostMapping("/profile/addBook")
+    public boolean addBook(@RequestBody Book book){
+        mainQueue.add(book);
+        starter.start(bookRepository, wordsRepository);
+        return true;
     }
 
 //    @GetMapping("/showAll")
