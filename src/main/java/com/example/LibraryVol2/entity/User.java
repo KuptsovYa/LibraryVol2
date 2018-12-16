@@ -17,8 +17,6 @@ public class User {
 
     public String getUUId() { return UUId; }
 
-    public void setUUId(String UUId) { this.UUId = UUId; }
-
     public int getIdusers() { return idusers; }
 
     public void setIdusers(int idusers) { this.idusers = idusers; }

@@ -1,14 +1,13 @@
 package com.example.LibraryVol2.repository;
 
-import com.example.LibraryVol2.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
+import com.example.LibraryVol2.dto.PersonDTO;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository{
+public interface UserRepository<P extends PersonDTO>{
 
-    void addAUser(String login, String password);
-    boolean checkEqualsLogin(String login);
-    boolean login(String login, String password);
+    void addAUser(P p);
+
+    boolean checkEqualsLogin(P p);
+
+    boolean login(P p);
 }

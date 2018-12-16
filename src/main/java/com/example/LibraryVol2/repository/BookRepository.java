@@ -1,10 +1,9 @@
 package com.example.LibraryVol2.repository;
 
-import org.springframework.stereotype.Repository;
+import com.example.LibraryVol2.dto.BookDTO;
 
-@Repository
-public interface BookRepository {
+public interface BookRepository<B extends BookDTO>  {
 
-    boolean addBook(String author, String title, String content);
+    boolean addBook(B b);
 
 }

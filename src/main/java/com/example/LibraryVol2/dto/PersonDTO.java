@@ -1,15 +1,15 @@
-package com.example.LibraryVol2.controllers.restapi.index;
+package com.example.LibraryVol2.dto;
 
-public class Person {
+public class PersonDTO {
 
     private String login;
     private String password;
 
-    public Person() {
+    public PersonDTO() {
 
     }
 
-    public Person(String login, String password) {
+    public PersonDTO(String login, String password) {
         this.login = login;
         this.password = password;
     }

@@ -1,15 +1,16 @@
-package com.example.LibraryVol2.controllers.restapi.profile;
+package com.example.LibraryVol2.dto;
 
-public class Book {
+public class BookDTO {
 
     private String author;
     private String title;
     private String content;
+    private int unDesirable;
 
-    public Book() {
+    public BookDTO() {
     }
 
-    public Book(String author, String title, String content) {
+    public BookDTO(String author, String title, String content) {
         this.author = author;
         this.title = title;
         this.content = content;
@@ -37,9 +38,17 @@ public class Book {
         this.content = content;
     }
 
+    public int getUnDesirable() {
+        return unDesirable;
+    }
+
+    public void setUnDesirable(int unDesirable) {
+        this.unDesirable = unDesirable;
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
+        return "BookDTO{" +
                 "author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +

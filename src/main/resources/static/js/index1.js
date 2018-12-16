@@ -59,15 +59,16 @@ $(document).ready(function() {
     $("#vlogin_reg").focusout(
         function()
         {
+            var url = '/loginCheck/'+$('#vlogin_reg').val();
             //console.log($('#vname').val());
             $.ajax
             (
                 {
-                    type:'PUT',
-                    url:'/loginCheck',
+                    type:'GET',
+                    url: url,
                     contentType: "application/json",
                     dataType: 'json',
-                    data:JSON.stringify({login:$('#vlogin_reg').val()}),
+                    // data:JSON.stringify({login:$('#vlogin_reg').val()}),
                     cache:false,
                     success:function(result){
                         alert("ajax in process");
@@ -91,8 +92,6 @@ $(document).ready(function() {
 
 
 });
-
-
 
 function regFunction() {
     if(blockReg == true){

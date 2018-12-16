@@ -1,46 +1,35 @@
 package com.example.LibraryVol2.logic;
 
-import com.example.LibraryVol2.controllers.restapi.profile.Book;
+import com.example.LibraryVol2.dto.BookDTO;
 import com.example.LibraryVol2.repository.BookRepository;
-import com.example.LibraryVol2.repository.WordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+@Component
 public class Consumer implements Runnable {
 
-    private final LinkedBlockingQueue<Book> mainQueue;
-    private final BookRepository bookRepository;
-    private final WordsRepository wordsRepository;
-    private final AtomicBoolean stop;
+    private final LinkedBlockingQueue<BookDTO> mainQueue;
+    private final Worker worker;
 
     @Autowired
-    public Consumer(LinkedBlockingQueue<Book> mainQueue, BookRepository bookRepository, WordsRepository wordsRepository, AtomicBoolean stop){
+    public Consumer(LinkedBlockingQueue<BookDTO> mainQueue, Worker worker){
         this.mainQueue = mainQueue;
-        this.bookRepository = bookRepository;
-        this.wordsRepository = wordsRepository;
-        this.stop = stop;
+        this.worker = worker;
     }
 
+    @Async("fixedThreadPool")
     public void run(){
-
-        while(!stop.get()){
+        while(true){
             System.out.println(mainQueue.size());
             try {
-                if(mainQueue.peek() == null){
-                    stop.set(true);
-                }else{
-                    Book b = mainQueue.take();
-                    Counter c = new Counter(b.getContent(), wordsRepository);
-                    c.count();
-//                    System.out.println(mainQueue.size());
-                    bookRepository.addBook(b.getAuthor(), b.getTitle(), b.getContent());
-                }
+                    BookDTO b = mainQueue.take();
+                    worker.addToDB(b);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-
     }
 }

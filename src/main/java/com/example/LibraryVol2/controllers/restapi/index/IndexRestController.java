@@ -1,39 +1,37 @@
 package com.example.LibraryVol2.controllers.restapi.index;
 
+import com.example.LibraryVol2.dto.PersonDTO;
 import com.example.LibraryVol2.repository.UserRepository;
+import com.example.LibraryVol2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 public class IndexRestController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public IndexRestController(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public IndexRestController(UserService userService){
+        this.userService = userService;
     }
 
     @PutMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody Person person ){
-        userRepository.addAUser(person.getLogin(), person.getPassword());
-        return ResponseEntity.ok(true);
+    public ResponseEntity<?> registration(@RequestBody PersonDTO personDTO){
+        if (userService.addAUser(personDTO))return ResponseEntity.ok(true);
+        else return ResponseEntity.ok(false);
     }
 
-    @PutMapping("/loginCheck")
-    public ResponseEntity<?> loginEqualsCheck(@RequestBody String login){
-        JacksonJsonParser jsonParser = new JacksonJsonParser();
-        Map<String, Object> map = jsonParser.parseMap(login);
-        Object s = map.get("login");
-        return ResponseEntity.ok(userRepository.checkEqualsLogin((String) s));
+    @GetMapping("/loginCheck/{login}")
+    public ResponseEntity<?> loginEqualsCheck(@PathVariable String login){
+        if (userService.checkEqualsLogin(login))return ResponseEntity.ok(true);
+        else return ResponseEntity.ok(false);
     }
 
     @PutMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Person person){
-        return ResponseEntity.ok(userRepository.login(person.getLogin(), person.getPassword()));
+    public ResponseEntity<?> login(@RequestBody PersonDTO personDTO){
+        if (userService.login(personDTO))return ResponseEntity.ok(true);
+        else return ResponseEntity.ok(false);
     }
 }

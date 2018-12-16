@@ -1,25 +1,33 @@
 package com.example.LibraryVol2.logic;
 
+import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.repository.BookRepository;
 import com.example.LibraryVol2.repository.WordsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class Counter {
+@Component
+public class Worker {
 
-    private HashMap<String, Integer> unDesirable = new HashMap<String, Integer>();
-    private String text;
     private WordsRepository wordsRepository;
+    private BookRepository bookRepository;
 
-    public Counter(String text, WordsRepository wordsRepository){
-        this.text = text;
+    public Worker(WordsRepository wordsRepository, BookRepository bookRepository){
         this.wordsRepository = wordsRepository;
+        this.bookRepository = bookRepository;
     }
 
-    public void count(){
-        String text = getText();
+    public void addToDB(BookDTO book){
+        book.setUnDesirable(countUnDesirableWords(book.getContent()));
+        bookRepository.addBook(book);
+    }
+
+    public int countUnDesirableWords(String text){
         text = text.replaceAll("[^A-Za-zА-Яа-я0-9\\s]", "");
 
         String[] textArr = text.split("\\s");
@@ -47,14 +55,6 @@ public class Counter {
         }
 
         System.out.println(sumCount + " Summary count of equals words");
+        return sumCount;
     }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
 }
