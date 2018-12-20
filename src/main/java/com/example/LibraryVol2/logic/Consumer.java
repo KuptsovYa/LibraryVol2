@@ -20,7 +20,6 @@ public class Consumer implements Runnable {
         this.worker = worker;
     }
 
-    @Async("fixedThreadPool")
     public void run(){
         while(true){
             System.out.println(mainQueue.size());
