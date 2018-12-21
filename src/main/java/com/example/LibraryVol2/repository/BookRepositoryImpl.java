@@ -17,7 +17,7 @@ public class BookRepositoryImpl implements BookRepository<BookDTO>{
 
     @Override
     public boolean addBook(BookDTO bookDTO) {
-        String sql = "INSERT INTO books(author, title, content) VALUES (?,?,?)";
+        String sql = "INSERT INTO books(author, title, content, users_idusers) VALUES (?,?,?)";
         Object[] params = new Object[] {bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent()};
         jdbcOperations.update(sql, params);
         return true;

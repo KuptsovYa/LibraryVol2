@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("WordService")
@@ -25,5 +26,15 @@ public class WordsServiceImpl implements WordsService {
             e.printStackTrace();
         }
         return "Correct word";
+    }
+
+    public List<String> getAllWords(){
+        List<String> result = new ArrayList<>();
+        try {
+            result = wordsRepository.getAllWords();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }

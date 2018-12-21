@@ -1,5 +1,6 @@
 package com.example.LibraryVol2.logic;
 
+import com.example.LibraryVol2.configuration.ImproperWordsBean;
 import com.example.LibraryVol2.dto.BookDTO;
 import com.example.LibraryVol2.repository.BookRepository;
 import com.example.LibraryVol2.repository.WordsRepository;
@@ -14,11 +15,12 @@ import java.util.stream.Collectors;
 @Component
 public class Worker {
 
-    private WordsRepository wordsRepository;
+    private ImproperWordsBean improperWordsBean;
     private BookRepository bookRepository;
 
-    public Worker(WordsRepository wordsRepository, BookRepository bookRepository){
-        this.wordsRepository = wordsRepository;
+    @Autowired
+    public Worker(ImproperWordsBean improperWordsBean, BookRepository bookRepository) {
+        this.improperWordsBean = improperWordsBean;
         this.bookRepository = bookRepository;
     }
 
@@ -46,9 +48,10 @@ public class Worker {
             for ( Map.Entry<String, Integer> entry : occurrences.entrySet()) {
                 String key = entry.getKey();
                 Integer value = entry.getValue();
-                if (key.equals(wordsRepository.getWord(key))){
+                if (improperWordsBean.getImproperWords().contains(key)){
                     sumCount += value;
                 }
+
             }
         }catch (Exception e){
             e.printStackTrace();

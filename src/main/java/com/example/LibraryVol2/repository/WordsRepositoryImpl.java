@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository("WordsRepository")
@@ -20,11 +21,8 @@ public class WordsRepositoryImpl implements WordsRepository{
     public String getWord(String wordFrmTxt){
         try {
             String sql = "SELECT word FROM improperwords WHERE word = ?;";
-            List<String> result = jdbcOperations.queryForList(sql, // Пришлось здесь взять листу, если брать просто стринг, причем слово будет корректным,
-                    // то он кидает мне вот это
-                    new Object[] { wordFrmTxt }, String.class);  // org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
-            // потому что jdbc.queryForObject должен вернуть только одну кверю, а не 0 или > 1
-
+            List<String> result = jdbcOperations.queryForList(sql,
+                    new Object[] { wordFrmTxt }, String.class);
             if(!result.isEmpty()){
                 return result.get(0);
             }
@@ -34,4 +32,14 @@ public class WordsRepositoryImpl implements WordsRepository{
         return "Correct word";
     }
 
+    public List<String> getAllWords(){
+        List<String> result = new ArrayList<String>();
+        try{
+            String sql = "SELECT word FROM improperwords;";
+            result = jdbcOperations.queryForList(sql, String.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

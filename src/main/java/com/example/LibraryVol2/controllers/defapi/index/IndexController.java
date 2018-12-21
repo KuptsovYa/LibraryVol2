@@ -17,7 +17,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String getIndex(){
-        executorsSubmitBean.init();
+//        executorsSubmitBean.init();
         return "index1";
     }
 

@@ -5,6 +5,7 @@ public class BookDTO {
     private String author;
     private String title;
     private String content;
+    private int userId;
     private int unDesirable;
 
     public BookDTO() {
@@ -14,6 +15,14 @@ public class BookDTO {
         this.author = author;
         this.title = title;
         this.content = content;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getAuthor() { return author; }
