@@ -22,7 +22,6 @@ public class Consumer implements Runnable {
 
     public void run(){
         while(true){
-            System.out.println(mainQueue.size());
             try {
                     BookDTO b = mainQueue.take();
                     worker.addToDB(b);

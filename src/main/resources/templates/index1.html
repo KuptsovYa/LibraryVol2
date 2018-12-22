@@ -32,22 +32,29 @@
         <span id="modal_close_reg">X</span>
         <form id="loginform" method="post" th:action="@{/profile}">
             <h3>Регистрация</h3>
-            <p>Ваш логин<br>
-                <input id="vlogin_reg" type="text" name="your-login" value="" size="35">
-            </p>
-            <p>Ваш пароль<br>
-                <input id="vpassword_reg" type="text" name="your-password" value="" size="35">
-            </p>
-            <p>Повторите пароль<br>
-                <input id="vpasswordRepeat_reg" type="text" name="your-password-repeat" value="" size="35">
-            </p>
-            <p style="text-align: center; padding-bottom: 10px;">
-                <button type="submit" value="Отправить" id="submitbtn_reg" onclick="regFunction()">Отправить</button>
-                <br>
-            </p>
-            <p style="display: none" id="vinvalidpass_reg" >
-                Некорректные данные
-            </p>
+                <p>
+                    <label for="vlogin_reg">Ваш логин</label>
+                    <br>
+                    <input id="vlogin_reg" type="text" name="your-login" value="" size="35">
+                </p>
+                <p>
+                    <label for="vpassword_reg">Ваш пароль</label>
+                    <br>
+                    <input id="vpassword_reg" type="text" name="your-password" value="" size="35">
+                </p>
+                <p>
+                    <label for="vinvalidpass_reg">Повторите пароль</label>
+                    <br>
+                    <input id="vpasswordRepeat_reg" type="text" name="your-password-repeat" value="" size="35">
+                </p>
+                <p style="text-align: center; padding-bottom: 10px;">
+                    <button type="submit" value="Отправить" id="submitbtn_reg" onclick="regFunction()">Отправить</button>
+                    <br>
+                </p>
+                <p style="display: none" id="vinvalidpass_reg" >
+                    <label for="vinvalidpass_reg">Некорректные данные</label>
+                </p>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </form>
     </div>
     <div id="overlay_reg" style="display: none;"></div>
@@ -56,20 +63,25 @@
     <div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">
         <span id="modal_close_login">X</span>
         <form id="regform" method="post" th:action="@{/profile}">
-        <h3>Войти в профиль</h3>
-        <p>Ваш логин<br>
-            <input id="vlogin_login" type="text" name="your-login" value="" size="35">
-        </p>
-        <p>Ваш пароль<br>
-            <input id="vpassword_login" type="text" name="your-password" value="" size="35">
-        </p>
-        <p style="text-align: center; padding-bottom: 10px;">
-            <button type="submit" value="Отправить" id="submitbtn" onclick="login()">Отправить</button>
-            <br>
-        </p>
-        <p style="display: none" id="vinvalidpass_login" >
-            Некорректные данные
-        </p>
+            <h3>Войти в профиль</h3>
+                <p>
+                    <label for="vlogin_login">Ваш логин</label>
+                    <br>
+                    <input id="vlogin_login" type="text" name="your-login" value="" size="35">
+                </p>
+                <p>
+                    <label for="vpassword_login">Ваш пароль</label>
+                    <br>
+                    <input id="vpassword_login" type="text" name="your-password" value="" size="35">
+                </p>
+                <p style="text-align: center; padding-bottom: 10px;">
+                    <button type="submit" value="Отправить" id="submitbtn" onclick="login()">Отправить</button>
+                <br>
+                </p>
+                <p style="display: none" id="vinvalidpass_login" >
+                    <label for="vinvalidpass_login">Некорректные данные</label>
+                </p>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </form>
     </div>
     <div id="overlay_login" style="display: none;"></div>

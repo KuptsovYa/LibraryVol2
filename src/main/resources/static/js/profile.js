@@ -1,10 +1,12 @@
 $(document).ready(function() {
 
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+
      $('#addbooksbtn').click(function() {
-         // var book = {};
-         // book["author"] = $('#vbook_author').val();
-         // book["title"] = $('#vbook_title').val();
-         // book["content"] = $('#vbook_content').val();
 
          var book = {
              author: $('#vbook_author').val(),
@@ -14,45 +16,6 @@ $(document).ready(function() {
          console.log(book);
          var tmp = JSON.stringify(book);
          console.log(tmp);
-         // console.log(book);
-         // var tmp = JSON.parse(book);
-         // console.log(tmp);
-         // $.ajax
-         // (
-         //     {
-         //         type: 'PUT',
-         //         url: '/registration',
-         //         dataType: 'json',
-         //         contentType: "application/json",
-         //         data:
-         //             // JSON.stringify(
-         //             // book
-         //             {
-         //                login: "login",
-         //                password: "password"
-         //             // author:$('#vbook_author').val(),
-         //             // title:$('#vbook_title').val(),
-         //             // content:$('#vbook_content').val()
-         //             },
-         //         // ),
-         //         cache: false,
-         //         async: false,
-         //         success: function (result) {
-         //             alert($('#vbook_author').val() + "  " + $('#vbook_title').val() + "  " + $('#vbook_content').val());
-         //             alert("Ajax returned");
-         //             if (result) {
-         //                 alert("Success");
-         //             } else {
-         //             }
-         //         },
-         //         error: function (request, status, error) {
-         //             var statusCode = request.status;
-         //             console.log(statusCode);
-         //             console.log(status);
-         //             console.log(error)
-         //         }
-         //     }
-         // )
          $.ajax({
                 method: 'POST',
                 headers: {
