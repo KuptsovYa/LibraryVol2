@@ -1,9 +1,11 @@
 package com.example.LibraryVol2.controllers.restapi.profile;
 
 import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.dto.PersonDTO;
 import com.example.LibraryVol2.service.BookService;
 import com.example.LibraryVol2.service.WordsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

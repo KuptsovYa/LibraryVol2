@@ -8,16 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    private ExecutorsSubmitBean executorsSubmitBean;
-
-    @Autowired
-    public IndexController(ExecutorsSubmitBean executorsSubmitBean) {
-        this.executorsSubmitBean = executorsSubmitBean;
-    }
-
     @GetMapping("/")
     public String getIndex(){
-//        executorsSubmitBean.init();
         return "index1";
     }
 
