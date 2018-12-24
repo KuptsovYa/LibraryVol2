@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 @Configuration
-public class BeanConfig {
+public class ThreadingToolsBeanConfig {
 
     @Bean
     public LinkedBlockingQueue<BookDto> getQueue(){
