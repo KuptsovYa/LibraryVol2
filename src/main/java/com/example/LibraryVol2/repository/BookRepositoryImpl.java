@@ -1,12 +1,12 @@
 package com.example.LibraryVol2.repository;
 
-import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.dto.BookDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
 @Repository("BookRepository")
-public class BookRepositoryImpl implements BookRepository<BookDTO>{
+public class BookRepositoryImpl implements BookRepository<BookDto>{
 
     private JdbcOperations jdbcOperations;
 
@@ -16,7 +16,7 @@ public class BookRepositoryImpl implements BookRepository<BookDTO>{
     }
 
     @Override
-    public boolean addBook(BookDTO bookDTO) {
+    public boolean addBook(BookDto bookDTO) {
         String sql = "INSERT INTO books(author, title, content, users_idusers) VALUES (?,?,?)";
         Object[] params = new Object[] {bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent()};
         jdbcOperations.update(sql, params);

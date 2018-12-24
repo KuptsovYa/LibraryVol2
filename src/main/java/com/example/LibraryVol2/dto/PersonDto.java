@@ -1,15 +1,19 @@
 package com.example.LibraryVol2.dto;
 
-public class PersonDTO {
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+
+public class PersonDto {
 
     private String login;
     private String password;
 
-    public PersonDTO() {
+    public PersonDto() {
 
     }
 
-    public PersonDTO(String login, String password) {
+    public PersonDto(String login, String password) {
         this.login = login;
         this.password = password;
     }
@@ -32,6 +36,9 @@ public class PersonDTO {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "BookDto{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

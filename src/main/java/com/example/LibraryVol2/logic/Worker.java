@@ -1,16 +1,12 @@
 package com.example.LibraryVol2.logic;
 
 import com.example.LibraryVol2.configuration.ImproperWordsBean;
-import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.repository.BookRepository;
-import com.example.LibraryVol2.repository.WordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Component
 public class Worker {
@@ -24,7 +20,7 @@ public class Worker {
         this.bookRepository = bookRepository;
     }
 
-    public void addToDB(BookDTO book){
+    public void addToDB(BookDto book){
         book.setUnDesirable(countUnDesirableWords(book.getContent()));
         bookRepository.addBook(book);
     }

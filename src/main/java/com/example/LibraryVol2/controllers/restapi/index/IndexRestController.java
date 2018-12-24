@@ -1,7 +1,6 @@
 package com.example.LibraryVol2.controllers.restapi.index;
 
-import com.example.LibraryVol2.dto.PersonDTO;
-import com.example.LibraryVol2.repository.UserRepository;
+import com.example.LibraryVol2.dto.PersonDto;
 import com.example.LibraryVol2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ public class IndexRestController {
     }
 
     @PutMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody PersonDTO personDTO){
+    public ResponseEntity<?> registration(@RequestBody PersonDto personDTO){
         if (userService.addAUser(personDTO))return ResponseEntity.ok(true);
         else return ResponseEntity.ok(false);
     }
@@ -30,7 +29,7 @@ public class IndexRestController {
     }
 
     @PutMapping("/login")
-    public ResponseEntity<?> login(@RequestBody PersonDTO personDTO){
+    public ResponseEntity<?> login(@RequestBody PersonDto personDTO){
         if (userService.login(personDTO))return ResponseEntity.ok(true);
         else return ResponseEntity.ok(false);
     }

@@ -1,9 +1,9 @@
 package com.example.LibraryVol2.service;
 
-import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.dto.BookDto;
 
 public interface BookService {
 
-    boolean addBook(BookDTO bookDTO);
+    boolean addBook(BookDto bookDTO);
 
 }

@@ -1,6 +1,6 @@
 package com.example.LibraryVol2.configuration;
 
-import com.example.LibraryVol2.dto.BookDTO;
+import com.example.LibraryVol2.dto.BookDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class BeanConfig {
 
     @Bean
-    public LinkedBlockingQueue<BookDTO> getQueue(){
+    public LinkedBlockingQueue<BookDto> getQueue(){
         return new LinkedBlockingQueue<>();
     }
 

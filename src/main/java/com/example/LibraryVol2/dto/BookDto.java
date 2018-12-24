@@ -1,6 +1,6 @@
 package com.example.LibraryVol2.dto;
 
-public class BookDTO {
+public class BookDto {
 
     private String author;
     private String title;
@@ -8,10 +8,10 @@ public class BookDTO {
     private int userId;
     private int unDesirable;
 
-    public BookDTO() {
+    public BookDto() {
     }
 
-    public BookDTO(String author, String title, String content) {
+    public BookDto(String author, String title, String content) {
         this.author = author;
         this.title = title;
         this.content = content;
@@ -57,7 +57,7 @@ public class BookDTO {
 
     @Override
     public String toString() {
-        return "BookDTO{" +
+        return "BookDto{" +
                 "author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +

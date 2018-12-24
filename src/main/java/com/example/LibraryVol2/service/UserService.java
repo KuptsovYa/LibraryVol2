@@ -1,13 +1,13 @@
 package com.example.LibraryVol2.service;
 
-import com.example.LibraryVol2.dto.PersonDTO;
+import com.example.LibraryVol2.dto.PersonDto;
 
 public interface UserService {
 
-    boolean addAUser(PersonDTO personDTO);
+    boolean addAUser(PersonDto personDTO);
 
     boolean checkEqualsLogin(String login);
 
-    boolean login(PersonDTO personDTO);
+    boolean login(PersonDto personDTO);
 
 }

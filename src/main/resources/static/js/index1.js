@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    console.log("Hi there");
     var blockReg = true;
 
     $('a#reg').click(function (event) {
@@ -22,7 +22,7 @@ $(document).ready(function () {
             );
     });
 
-    $('a#login').click(function (event) {
+    $('a#loginhref').click(function (event) {
         event.preventDefault();
         $('#overlay_login').fadeIn(400,
             function () {

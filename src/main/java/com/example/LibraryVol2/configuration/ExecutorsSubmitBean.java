@@ -1,13 +1,10 @@
 package com.example.LibraryVol2.configuration;
 
 import com.example.LibraryVol2.contextListener.PostProxy;
-import com.example.LibraryVol2.dto.BookDTO;
 import com.example.LibraryVol2.logic.Consumer;
 import com.example.LibraryVol2.logic.Worker;
 import com.example.LibraryVol2.repository.BookRepository;
-import com.example.LibraryVol2.repository.WordsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;

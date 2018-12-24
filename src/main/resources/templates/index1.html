@@ -24,24 +24,24 @@
         <a href="#" id="reg">Регистрация</a>
     </button>
     <button>
-        <a href="#" id="login">Войти в профиль</a>
+        <a href="#" id="loginhref">Войти в профиль</a>
     </button>
 </div>
 
 
-<div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">
-    <span id="modal_close_login">X</span>
-    <form id="loginform" method="post" th:action="@{/login}">
+<!--<div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">-->
+    <!--<span id="modal_close_login">X</span>-->
+    <form id="loginform" method="post" th:action="@{/}">
         <h3>Войти в профиль</h3>
         <p>
-            <label for="vlogin_login">Ваш логин</label>
+            <label for="login">Ваш логин</label>
             <br>
-            <input id="vlogin_login" type="text" name="login" value="" size="35">
+            <input id="login" type="text" name="login" value="" size="35">
         </p>
         <p>
-            <label for="vpassword_login">Ваш пароль</label>
+            <label for="password">Ваш пароль</label>
             <br>
-            <input id="vpassword_login" type="text" name="password" value="" size="35">
+            <input id="password" type="password" name="password" value="" size="35">
         </p>
         <p style="text-align: center; padding-bottom: 10px;">
             <button type="submit" value="Отправить" id="submitbtn" name="submit">Отправить</button>
@@ -52,8 +52,8 @@
         </p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
-</div>
-<div id="overlay_login" style="display: none;"></div>
+<!--</div>-->
+<!--<div id="overlay_login" style="display: none;"></div>-->
 
 
 <div id="modal_form_reg" style="display: none; top: 45%; opacity: 0;">
@@ -63,12 +63,12 @@
         <p>
             <label for="vlogin_reg">Ваш логин</label>
             <br>
-            <input id="vlogin_reg" type="text" name="login" value="" size="35">
+            <input id="vlogin_reg" type="text" name="loginreg" value="" size="35">
         </p>
         <p>
             <label for="vpassword_reg">Ваш пароль</label>
             <br>
-            <input id="vpassword_reg" type="text" name="password" value="" size="35">
+            <input id="vpassword_reg" type="text" name="passwordreg" value="" size="35">
         </p>
         <p>
             <label for="vinvalidpass_reg">Повторите пароль</label>
