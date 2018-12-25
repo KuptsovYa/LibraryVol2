@@ -16,13 +16,7 @@ public class BookServiceImpl implements BookService {
         this.queue = queue;
     }
 
-    public boolean addBook(BookDto bookDTO){
-        try{
-            queue.add(bookDTO);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+    public void addBook(BookDto bookDTO){
+        queue.add(bookDTO);
     }
 }

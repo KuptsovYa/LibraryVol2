@@ -17,20 +17,25 @@ public class IndexRestController {
     }
 
     @PutMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody PersonDto personDTO){
-        if (userService.addAUser(personDTO))return ResponseEntity.ok(true);
-        else return ResponseEntity.ok(false);
+    public PersonDto registration(@RequestBody PersonDto personDTO){
+        PersonDto person = new PersonDto(personDTO.getLogin(), personDTO.getPassword());
+        if (userService.addAUser(person)){
+            return person;
+        }
+        else {
+          return person;
+        }
     }
 
     @GetMapping("/loginCheck/{login}")
-    public ResponseEntity<?> loginEqualsCheck(@PathVariable String login){
-        if (userService.checkEqualsLogin(login))return ResponseEntity.ok(true);
-        else return ResponseEntity.ok(false);
+    public String loginEqualsCheck(@PathVariable String login){
+        String loginNew = login;
+        if (userService.checkEqualsLogin(loginNew)){
+            return loginNew;
+        }
+        else {
+            return "fail";
+        }
     }
 
-    @PutMapping("/login")
-    public ResponseEntity<?> login(@RequestBody PersonDto personDTO){
-        if (userService.login(personDTO))return ResponseEntity.ok(true);
-        else return ResponseEntity.ok(false);
-    }
 }

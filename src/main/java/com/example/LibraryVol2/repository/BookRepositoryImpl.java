@@ -17,9 +17,16 @@ public class BookRepositoryImpl implements BookRepository<BookDto>{
 
     @Override
     public boolean addBook(BookDto bookDTO) {
-        String sql = "INSERT INTO books(author, title, content, users_idusers) VALUES (?,?,?)";
-        Object[] params = new Object[] {bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent()};
-        jdbcOperations.update(sql, params);
-        return true;
+        boolean flag = false;
+        try {
+            String sql = "INSERT INTO books(author, title, content, users_idusers) VALUES (?,?,?)";
+            Object[] params = new Object[] {bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent()};
+            jdbcOperations.update(sql, params);
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            return flag;
+        }
     }
 }

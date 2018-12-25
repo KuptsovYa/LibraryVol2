@@ -2,8 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{js/index1.js}" charset="utf-8"></script>
     <link rel="stylesheet" th:href="@{css/index1.css}" type="text/css"/>
     <title>Title</title>
@@ -29,8 +32,8 @@
 </div>
 
 
-<!--<div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">-->
-    <!--<span id="modal_close_login">X</span>-->
+<div id="modal_form_login" style="display: none; top: 45%; opacity: 0;">
+    <span id="modal_close_login">X</span>
     <form id="loginform" method="post" th:action="@{/}">
         <h3>Войти в профиль</h3>
         <p>
@@ -52,13 +55,13 @@
         </p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
-<!--</div>-->
-<!--<div id="overlay_login" style="display: none;"></div>-->
+</div>
+<div id="overlay_login" style="display: none;"></div>
 
 
 <div id="modal_form_reg" style="display: none; top: 45%; opacity: 0;">
     <span id="modal_close_reg">X</span>
-    <form id="regform" method="post" th:action="@{/login}">
+    <form>
         <h3>Регистрация</h3>
         <p>
             <label for="vlogin_reg">Ваш логин</label>
@@ -76,7 +79,7 @@
             <input id="vpasswordRepeat_reg" type="text" name="your-password-repeat" value="" size="35">
         </p>
         <p style="text-align: center; padding-bottom: 10px;">
-            <button type="submit" value="Отправить" id="submitbtn_reg" onclick="regFunction()">Отправить</button>
+            <button type="button" value="Отправить" id="submitbtn_reg">Отправить</button>
             <br>
         </p>
         <p style="display: none" id="vinvalidpass_reg">

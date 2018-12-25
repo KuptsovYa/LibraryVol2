@@ -1,6 +1,10 @@
 $(document).ready(function () {
-    console.log("Hi there");
-    var blockReg = true;
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
 
     $('a#reg').click(function (event) {
         event.preventDefault();
@@ -42,10 +46,11 @@ $(document).ready(function () {
             );
     });
 
+    var blockReg = true;
 
     $('#vpassword_reg').focusout(
         function () {
-            if ($('#vpassword_reg').val() != $('#vpasswordRepeat_reg').val()) {
+            if ($('#vpassword_reg').val() != $('#vpasswordRepeat_reg').val() && $('#vpasswordRepeat_reg').val() != "") {
                 blockReg = true;
                 $('#vinvalidpass_reg').css('display', 'block');
             } else {
@@ -56,29 +61,32 @@ $(document).ready(function () {
     );
 
     $("#vlogin_reg").focusout(
-        function () {
-            var url = '/loginCheck/' + $('#vlogin_reg').val();
+        function f() {
+            var login = $('#vlogin_reg').val();
+
+            var url = '/loginCheck/' + login;
+            alert("focusout s logina " + url);
             $.ajax
             (
                 {
                     type: 'GET',
                     url: url,
-                    contentType: "application/json",
-                    dataType: 'json',
-                    cache: false,
+                    async: true,
                     success: function (result) {
                         alert("ajax in process");
+                        alert(result);
+                        if (result == true){alert("true")}
                         if (result == false) {
                             blockReg = true;
                             $('#vinvalidpass_reg').css('display', 'block');
                         }
                         else {
-                            blockSubmit = false;
-                            $('#vinvalidpass_reg').css('display', 'block');
+                            blockReg = false;
+                            $('#vinvalidpass_reg').css('display', 'none');
                         }
                     },
                     error: function (request, status, error) {
-                        var statusCode = request.status; // вот он код ответа
+                        var statusCode = request.status;
                         console.log(statusCode);
                     }
                 }
@@ -86,64 +94,37 @@ $(document).ready(function () {
         }
     );
 
-
-});
-
-function regFunction() {
-    if (blockReg == true) {
-        event.preventDefault();
-    }
-    else {
-        $.ajax
-        (
-            {
-                type: 'PUT',
-                url: '/registration',
-                contentType: "application/json",
-                dataType: 'json',
-                data: JSON.stringify({login: $('#vlogin_reg').val(), password: $('#vpassword_reg').val()}),
-                cache: false,
-                async: false,
-                success: function (result) {
-                    alert("Ajax returned");
-                    if (result == true) {
-                        alert("Success");
-                    } else {
-                    }
-                },
-                error: function (request, status, error) {
-                    blockSubmit = true;
-                    var statusCode = request.status; // вот он код ответа
-                    console.log(statusCode);
-                }
-            }
-        )
-    }
-}
-
-function login() {
-    $.ajax
-    (
-        {
-            type: 'PUT',
-            url: '/login',
-            contentType: "application/json",
-            dataType: 'json',
-            data: JSON.stringify({login: $('#vlogin_login').val(), password: $('#vpassword_login').val()}),
-            cache: false,
-            async: false,
-            success: function (result) {
-                alert("Ajax returned");
-                if (result == true) {
-                    alert("Success");
-                } else {
-                }
-            },
-            error: function (request, status, error) {
-                blockSubmit = true;
-                var statusCode = request.status; // вот он код ответа
-                console.log(statusCode);
-            }
+    $("#submitbtn_reg").click(
+        function regFunction() {
+        alert("click na button" + blockReg);
+        if (blockReg == true) {
+            event.preventDefault();
         }
-    )
-}
+        else {
+            alert("Ajax");
+            $.ajax
+            (
+                {
+                    type: 'PUT',
+                    url: '/registration',
+                    contentType: "application/json",
+                    dataType: 'json',
+                    data: JSON.stringify({login: $('#vlogin_reg').val(), password: $('#vpassword_reg').val()}),
+                    cache: false,
+                    async: false,
+                    success: function (result) {
+                        if (result == true) {
+                            alert("Success");
+                        } else {
+                        }
+                    },
+                    error: function (request, status, error) {
+                        blockReg = true;
+                        var statusCode = request.status; // вот он код ответа
+                        console.log(statusCode);
+                    }
+                }
+            )
+        }
+    });
+});

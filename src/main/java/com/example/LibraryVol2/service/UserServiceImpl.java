@@ -13,39 +13,25 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository =  userRepository;
+        this.userRepository = userRepository;
     }
 
-    public boolean addAUser(PersonDto personDTO){
-        try{
+    public boolean addAUser(PersonDto personDTO) {
+        try {
+            System.out.println(personDTO);
             userRepository.addAUser(personDTO);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public boolean checkEqualsLogin(String login){
-       try {
-           PersonDto personDTO = new PersonDto();
-           personDTO.setLogin(login);
-           userRepository.checkEqualsLogin(personDTO);
-           return true;
-       }catch (Exception e){
-           e.printStackTrace();
-           return false;
-       }
+    public boolean checkEqualsLogin(String login) {
+        PersonDto personDTO = new PersonDto();
+        personDTO.setLogin(login);
+        return userRepository.checkEqualsLogin(personDTO);
     }
 
-    public boolean login(PersonDto personDTO){
-        try{
-            userRepository.login(personDTO);
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
 
 }

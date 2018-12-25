@@ -8,6 +8,4 @@ public interface UserService {
 
     boolean checkEqualsLogin(String login);
 
-    boolean login(PersonDto personDTO);
-
 }

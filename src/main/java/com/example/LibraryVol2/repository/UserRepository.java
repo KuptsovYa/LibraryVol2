@@ -9,7 +9,5 @@ public interface UserRepository<P extends PersonDto>{
 
     boolean checkEqualsLogin(P p);
 
-    boolean login(P p);
-
     UsersEntity findByLogin(String login);
 }

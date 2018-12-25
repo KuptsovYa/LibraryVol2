@@ -19,5 +19,4 @@ public class ThreadingToolsBeanConfig {
     @Bean
     public ExecutorService getFixedThreadPool(){ return Executors.newFixedThreadPool(5); }
 
-
 }

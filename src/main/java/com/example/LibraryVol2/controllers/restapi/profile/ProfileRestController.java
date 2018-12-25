@@ -20,9 +20,10 @@ public class ProfileRestController {
     }
 
     @PostMapping("/profile/addBook")
-    public boolean addBook(@RequestBody BookDto bookDTO){
-        bookService.addBook(bookDTO);
-        return true;
+    public BookDto addBook(@RequestBody BookDto bookDTO){
+        BookDto newBook = new BookDto(bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent());
+        bookService.addBook(newBook);
+        return newBook;
     }
 
 //    @GetMapping("/showAll")

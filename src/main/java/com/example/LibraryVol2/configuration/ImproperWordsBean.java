@@ -3,14 +3,16 @@ package com.example.LibraryVol2.configuration;
 import com.example.LibraryVol2.contextListener.PostProxy;
 import com.example.LibraryVol2.service.WordsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class ImproperWordsBean {
 
-    private ArrayList<String> improperWords;
+    private List<String> improperWords;
 
     private WordsService wordsService;
 
@@ -21,11 +23,11 @@ public class ImproperWordsBean {
 
     @PostProxy
     public void initialization(){
-        this.improperWords = (ArrayList<String>) wordsService.getAllWords();
+        this.improperWords = wordsService.getAllWords();
     }
 
     public ArrayList<String> getImproperWords() {
-        return new ArrayList<String>(improperWords);
+        return new ArrayList<>(improperWords);
     }
 
 }
