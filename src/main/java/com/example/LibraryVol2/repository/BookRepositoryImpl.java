@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
-@Repository("BookRepository")
+@Repository
 public class BookRepositoryImpl implements BookRepository<BookDto>{
 
     private JdbcOperations jdbcOperations;

@@ -17,6 +17,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public void addBook(BookDto bookDTO){
+
         queue.add(bookDTO);
     }
 }

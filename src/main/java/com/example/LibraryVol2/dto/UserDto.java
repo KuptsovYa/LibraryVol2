@@ -4,16 +4,16 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.Entity;
 
-public class PersonDto {
+public class UserDto {
 
     private String login;
     private String password;
 
-    public PersonDto() {
+    public UserDto() {
 
     }
 
-    public PersonDto(String login, String password) {
+    public UserDto(String login, String password) {
         this.login = login;
         this.password = password;
     }

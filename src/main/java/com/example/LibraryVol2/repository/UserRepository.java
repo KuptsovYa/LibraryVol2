@@ -1,9 +1,9 @@
 package com.example.LibraryVol2.repository;
 
-import com.example.LibraryVol2.dto.PersonDto;
+import com.example.LibraryVol2.dto.UserDto;
 import com.example.LibraryVol2.entity.UsersEntity;
 
-public interface UserRepository<P extends PersonDto>{
+public interface UserRepository<P extends UserDto>{
 
     void addAUser(P p);
 

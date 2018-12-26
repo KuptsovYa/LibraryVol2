@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository("WordsRepository")
+@Repository
 public class WordsRepositoryImpl implements WordsRepository{
 
     private JdbcOperations jdbcOperations;

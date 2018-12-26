@@ -1,19 +1,15 @@
 package com.example.LibraryVol2.repository;
 
-import com.example.LibraryVol2.dto.PersonDto;
+import com.example.LibraryVol2.dto.UserDto;
 import com.example.LibraryVol2.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-
-@Repository("UserRepository")
-public class UserRepositoryImpl implements UserRepository<PersonDto> {
+@Repository
+public class UserRepositoryImpl implements UserRepository<UserDto> {
 
     private JdbcOperations jdbcOperations;
     private PasswordEncoder passwordEncoder;
@@ -25,10 +21,10 @@ public class UserRepositoryImpl implements UserRepository<PersonDto> {
     }
 
     @Override
-    public void addAUser(PersonDto personDTO) {
+    public void addAUser(UserDto userDTO) {
         try {
-            String hashedPass = passwordEncoder.encode(personDTO.getPassword());
-            Object[] params = new Object[] {personDTO.getLogin(), hashedPass};
+            String hashedPass = passwordEncoder.encode(userDTO.getPassword());
+            Object[] params = new Object[] {userDTO.getLogin(), hashedPass};
             jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?);",params);
         } catch (Exception e){
             e.printStackTrace();
@@ -36,11 +32,11 @@ public class UserRepositoryImpl implements UserRepository<PersonDto> {
     }
 
     @Override
-    public boolean checkEqualsLogin(PersonDto personDTO) {
+    public boolean checkEqualsLogin(UserDto userDTO) {
         boolean flag = false;
         try {
             String sql = "SELECT COUNT(*) FROM users WHERE login = ? ;";
-            Object[] params = new Object[] {personDTO.getLogin()};
+            Object[] params = new Object[] {userDTO.getLogin()};
             Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
             if(count != null){
                 flag = true;
@@ -53,14 +49,13 @@ public class UserRepositoryImpl implements UserRepository<PersonDto> {
 
     }
 
-
     @Override
     public UsersEntity findByLogin(String login) {
         UsersEntity usersEntity = new UsersEntity();
         try {
             String sql = "SELECT login, password FROM users WHERE login = ?";
             Object[] params = new Object[] {login};
-            PersonDto result = (PersonDto) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(PersonDto.class));
+            UserDto result = (UserDto) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UserDto.class));
             usersEntity.setLogin(result.getLogin());
             usersEntity.setPassword(result.getPassword());
             return usersEntity;

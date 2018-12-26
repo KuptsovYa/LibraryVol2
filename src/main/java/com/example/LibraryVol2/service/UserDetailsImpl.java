@@ -1,11 +1,9 @@
 package com.example.LibraryVol2.service;
 
-import com.example.LibraryVol2.dto.PersonDto;
 import com.example.LibraryVol2.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 

@@ -7,18 +7,99 @@
     <meta charset="UTF-8">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{js/profile.js}" charset="utf-8"></script>
+    <link rel="stylesheet" href='../static/css/profile.css'/>
     <title>Profile</title>
 </head>
 <body>
-    <button type="submit" id="lstbooksbtn" onclick="showAll()">Перейти к списку книг</button>
-        <input id="vbook_author" type="text" name="bookDTO-author" value="" size="35">
-        <input id="vbook_title" type="text" name="bookDTO-title" value="" size="35">
-        <textarea id="vbook_content" rows="10" cols="50" style="resize: none">
-        </textarea>
+<table>
+    <tr>
+        <td>
+            <div id="headerwrap">
+                <div class="container">
+                    <div class="row centered">
+                        <div class="cool-lg-8 col-lg-offset-2">
+                            <h1>Профиль</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="main">
+                    <div class="row" id="real-estates-detail">
+                        <div class="col-lg-4 col-md-4 col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <header class="panel-title">
+                                        <div class="text-center">
+                                            <strong>Привет </strong>
+                                        </div>
+                                    </header>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-xs-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <ul id="myTab" class="nav nav-pills">
+                                        <h4> Информация </h4>
+                                    </ul>
+                                    <div class="profile-block">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="info">
+                                                    <li>Имя: <input type="text" id="cpName" readonly="readonly"
+                                                                    class="personalinputread" value=""></li>
+                                                    <li>Фамилия: <input type="text" id="cpSecondName"
+                                                                        readonly="readonly"
+                                                                        class="personalinputread" value=""></li>
+                                                    <li>Отчество: <input type="text" id="cpMiddleName"
+                                                                        readonly="readonly"
+                                                                        class="personalinputread" value=""></li>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="changePersonalButton" value="Изменить персональные данные"></button>
+                                <br>
+                                <form action="#" method="POST" id="vprofileForm">
 
-    <button id="addbooksbtn" >Добавить книгу</button>
-    <ul id="vbooks_list">
+                                </form>
+                            </div>
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="Выход из профиля" class="btn11 btn btn-primary exitbutton"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <input id="vbook_title" type="text" name="bookDTO-title" value="" size="35">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea id="vbook_content" rows="10" cols="50" style="resize: none"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="addbooksbtn">Добавить книгу</button>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <button type="submit" id="lstbooksbtn" onclick="showAll()">Перейти к списку книг</button>
+        <!--VOT TYT BYDYT KNIGI-->
+    </tr>
+</table>
 
-    </ul>
+
 </body>
 </html>
