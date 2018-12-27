@@ -1,6 +1,7 @@
 package com.example.LibraryVol2.configuration;
 
 import com.example.LibraryVol2.dto.BookDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,6 @@ public class ThreadingToolsBeanConfig {
     }
 
     @Bean
-    public ExecutorService getFixedThreadPool(){ return Executors.newFixedThreadPool(5); }
+    public ExecutorService getFixedThreadPool(@Value("${numOfThreads}") int numOfTh){ return Executors.newFixedThreadPool(numOfTh); }
 
 }

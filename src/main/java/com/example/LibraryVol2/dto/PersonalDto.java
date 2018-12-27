@@ -7,6 +7,9 @@ public class PersonalDto {
     private String middleName;
     private String login;
 
+    public PersonalDto() {
+    }
+
     public PersonalDto(String firstName, String lastName, String middleName) {
         this.firstName = firstName;
         this.lastName = lastName;

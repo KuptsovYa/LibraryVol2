@@ -5,6 +5,7 @@ import com.example.LibraryVol2.logic.Consumer;
 import com.example.LibraryVol2.logic.Worker;
 import com.example.LibraryVol2.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
@@ -30,7 +31,8 @@ public class ExecutorsSubmitBean {
         this.queue = queue;
     }
 
-    private int nThreads = 5;
+    @Value("${numOfThreads}")
+    private int nThreads;
 
     @PostProxy
     public void init(){

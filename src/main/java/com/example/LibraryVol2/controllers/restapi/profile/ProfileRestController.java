@@ -33,6 +33,12 @@ public class ProfileRestController {
         return personalService.getPersonal(authentication.getName());
     }
 
+    @PostMapping("/profile/addPersonal")
+    public PersonalDto addPersonal(@RequestBody PersonalDto personalDto){
+        Authentication authentication = authenticationFacade.getAuthentication();
+        return personalService.insertPersonalData(personalDto, authentication.getName());
+    }
+
     @PostMapping("/profile/addBook")
     public BookDto addBook(@RequestBody BookDto bookDTO){
         BookDto newBook = new BookDto(bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent());

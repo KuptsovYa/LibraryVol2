@@ -37,7 +37,7 @@ public class PersonalRepositoryImpl implements PersonalRepository {
     @Override
     public PersonalDto insertPersonalInfo(PersonalDto personal) {
         String sql = "INSERT INTO personal(firstName, lastName, middleName, users_idusers) " +
-                "VALUES(?, ?, ?, (SELECT idusers from users WHERE login = ?);";
+                "VALUES(?, ?, ?, (SELECT idusers FROM users WHERE login = ?));";
         Object[] params = new Object[]{personal.getFirstName(), personal.getLastName(),
                 personal.getMiddleName(), personal.getLogin()};
         jdbcOperations.update(sql, params);

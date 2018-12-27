@@ -13,7 +13,11 @@ $(document).ready(function () {
             url: "/profile/getPersonal",
             success: function (result) {
                 alert("ajax in process");
-                alert(result);
+                console.log(result);
+                $('#cpName').val(result.firstName);
+                $('#cpSecondName').val(result.lastName);
+                $('#cpMiddleName').val(result.middleName);
+                $('.panel-body').append("<input id=\"personalMsg\" value=\"Персональные данные можно изменять только один раз\" readonly='readonly'>");
             },
             error: function (request, status, error) {
                 var statusCode = request.status;
@@ -21,6 +25,15 @@ $(document).ready(function () {
             }
         }
     );
+
+    if($('#cpName').val() == "" ||
+        $('#cpSecondName').val() == "" ||
+        $('#cpMiddleName').val() == ""){
+        $('#cpName').prop('readOnly', false);
+        $('#cpSecondName').prop('readOnly', false);
+        $('#cpMiddleName').prop('readOnly', false);
+        $('#changePersonalButton').prop('disabled', false);
+    }
 
     $('#addbooksbtn').click(function () {
 
@@ -52,8 +65,51 @@ $(document).ready(function () {
 
     });
 
+    $('#changePersonalButton').click(function addNewPersonalInfo() {
+
+        alert("CLICK");
+        alert($('#cpName').val() == "" ||
+            $('#cpSecondName').val() == "" ||
+            $('#cpMiddleName').val() == "");
+        if($('#cpName').val() == "" ||
+            $('#cpSecondName').val() == "" ||
+            $('#cpMiddleName').val() == ""){
+            alert("Заполните все поля");
+        }else {
+            $('#personalMsg').hide();
+            var personalInfo = {
+                firstName: $('#cpName').val(),
+                lastName: $('#cpSecondName').val(),
+                middleName: $('#cpMiddleName').val()
+            };
+            console.log(personalInfo);
+            $.ajax
+            (
+                {
+                    type: 'POST',
+                    url: "/profile/addPersonal",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'dataType': 'json'
+                    },
+                    data: JSON.stringify(personalInfo),
+                    success: function (result) {
+                        alert("ajax in process");
+                        console.log(result);
+                    },
+                    error: function (request, status, error) {
+                        var statusCode = request.status;
+                        console.log(statusCode);
+                    }
+                }
+            );
+            $('#changePersonalButton').prop('disabled', true);
+        }
+    });
 
 });
+
+
 
 function showAll() {
 

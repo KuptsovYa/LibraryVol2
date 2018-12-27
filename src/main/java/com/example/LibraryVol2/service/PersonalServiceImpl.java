@@ -23,6 +23,9 @@ public class PersonalServiceImpl implements PersonalService{
     public PersonalDto getPersonal(String login) {
         List<Map<String, Object>> personal = personalRepository.getPersonalInfo(login);
         List<String> result = new ArrayList<>();
+        if(personal.size() == 0){
+            return null;
+        }
         for ( Map.Entry<String, Object> entry : personal.get(0).entrySet()) {
             result.add((String)entry.getValue());
         }
