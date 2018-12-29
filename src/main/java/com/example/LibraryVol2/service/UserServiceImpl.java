@@ -1,6 +1,7 @@
 package com.example.LibraryVol2.service;
 
 import com.example.LibraryVol2.dto.UserDto;
+import com.example.LibraryVol2.entity.UsersEntity;
 import com.example.LibraryVol2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +17,22 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public boolean addAUser(UserDto userDTO) {
+    public UserDto addAUser(UserDto userDTO) {
         try {
-            System.out.println(userDTO);
-            userRepository.addAUser(userDTO);
-            return true;
+            UsersEntity usersEntity = new UsersEntity();
+            usersEntity.setLogin(userDTO.getLogin());
+            usersEntity.setPassword(userDTO.getPassword());
+            userRepository.addAUser(usersEntity);
+            return new UserDto();
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
     public boolean checkEqualsLogin(String login) {
-        UserDto userDTO = new UserDto();
-        userDTO.setLogin(login);
-        return userRepository.checkEqualsLogin(userDTO);
+        UsersEntity user = new UsersEntity();
+        return userRepository.checkEqualsLogin(user);
     }
 
 

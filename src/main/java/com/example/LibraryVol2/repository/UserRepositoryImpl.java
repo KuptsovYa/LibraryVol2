@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository<UserDto> {
+public class UserRepositoryImpl implements UserRepository<UsersEntity> {
 
     private JdbcOperations jdbcOperations;
     private PasswordEncoder passwordEncoder;
@@ -21,22 +21,18 @@ public class UserRepositoryImpl implements UserRepository<UserDto> {
     }
 
     @Override
-    public void addAUser(UserDto userDTO) {
-        try {
-            String hashedPass = passwordEncoder.encode(userDTO.getPassword());
-            Object[] params = new Object[] {userDTO.getLogin(), hashedPass};
+    public void addAUser(UsersEntity user) {
+            String hashedPass = passwordEncoder.encode(user.getPassword());
+            Object[] params = new Object[] {user.getLogin(), hashedPass};
             jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?);",params);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public boolean checkEqualsLogin(UserDto userDTO) {
+    public boolean checkEqualsLogin(UsersEntity user) {
         boolean flag = false;
         try {
-            String sql = "SELECT COUNT(*) FROM users WHERE login = ? ;";
-            Object[] params = new Object[] {userDTO.getLogin()};
+            String sql = "SELECT COUNT(*) FROM users WHERE login = ?;";
+            Object[] params = new Object[] {user.getLogin()};
             Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
             if(count != null){
                 flag = true;

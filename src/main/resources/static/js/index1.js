@@ -121,7 +121,7 @@ $(document).ready(function () {
                     error: function (request, status, error) {
                         blockReg = true;
                         var statusCode = request.status; // вот он код ответа
-                        console.log(statusCode);
+                        alert(message());
                     }
                 }
             )
