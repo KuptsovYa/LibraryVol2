@@ -20,7 +20,7 @@ public class WordsRepositoryImpl implements WordsRepository{
 
     public String getWord(String wordFrmTxt){
         try {
-            String sql = "SELECT word FROM improperwords WHERE word = ?;";
+            String sql = "SELECT word FROM improperwords WHERE word = ?";
             List<String> result = jdbcOperations.queryForList(sql,
                     new Object[] { wordFrmTxt }, String.class);
             if(!result.isEmpty()){
@@ -35,7 +35,7 @@ public class WordsRepositoryImpl implements WordsRepository{
     public List<String> getAllWords(){
         List<String> result = new ArrayList<String>();
         try{
-            String sql = "SELECT word FROM improperwords;";
+            String sql = "SELECT word FROM improperwords";
             result = jdbcOperations.queryForList(sql, String.class);
         }catch (Exception e){
             e.printStackTrace();

@@ -24,14 +24,14 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
     public void addAUser(UsersEntity user) {
             String hashedPass = passwordEncoder.encode(user.getPassword());
             Object[] params = new Object[] {user.getLogin(), hashedPass};
-            jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?);",params);
+            jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?)",params);
     }
 
     @Override
     public boolean checkEqualsLogin(UsersEntity user) {
         boolean flag = false;
         try {
-            String sql = "SELECT COUNT(*) FROM users WHERE login = ?;";
+            String sql = "SELECT COUNT(*) FROM users WHERE login = ?";
             Object[] params = new Object[] {user.getLogin()};
             Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
             if(count != null){
