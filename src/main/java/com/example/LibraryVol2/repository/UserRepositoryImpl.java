@@ -22,9 +22,9 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
 
     @Override
     public void addAUser(UsersEntity user) {
-            String hashedPass = passwordEncoder.encode(user.getPassword());
-            Object[] params = new Object[] {user.getLogin(), hashedPass};
-            jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?)",params);
+        String hashedPass = passwordEncoder.encode(user.getPassword());
+        Object[] params = new Object[]{user.getLogin(), hashedPass};
+        jdbcOperations.update("INSERT INTO users(login, password)VALUES (?,?)", params);
     }
 
     @Override
@@ -32,14 +32,14 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
         boolean flag = false;
         try {
             String sql = "SELECT COUNT(*) FROM users WHERE login = ?";
-            Object[] params = new Object[] {user.getLogin()};
+            Object[] params = new Object[]{user.getLogin()};
             Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
-            if(count != null){
+            if (count != null) {
                 flag = true;
-            }else flag = false;
-        }catch (Exception e){
+            } else flag = false;
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return flag;
         }
 
@@ -50,14 +50,14 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
         UsersEntity usersEntity = new UsersEntity();
         try {
             String sql = "SELECT login, password FROM users WHERE login = ?";
-            Object[] params = new Object[] {login};
+            Object[] params = new Object[]{login};
             UserDto result = (UserDto) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UserDto.class));
             usersEntity.setLogin(result.getLogin());
             usersEntity.setPassword(result.getPassword());
             return usersEntity;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return usersEntity;
         }
     }

@@ -6,4 +6,5 @@ public interface BookService {
 
     void addBook(BookDto bookDTO);
 
+    String[][] getAllBooks();
 }

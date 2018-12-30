@@ -46,8 +46,10 @@ public class ProfileRestController {
         return newBook;
     }
 
-
-
+    @GetMapping("/profile/getAllBooks")
+    public String[][] getAllBooks(){
+        return bookService.getAllBooks();
+    }
 //    @GetMapping("/showAll")
 //    public ResponseEntity<?> showAll(){
 //        bookRepository

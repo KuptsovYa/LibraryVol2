@@ -5,6 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Repository
 public class BookRepositoryImpl implements BookRepository<BookDto>{
 
@@ -28,5 +32,12 @@ public class BookRepositoryImpl implements BookRepository<BookDto>{
         }finally {
             return flag;
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllBooks() {
+        String sql = "SELECT idbooks, author, title FROM books WHERE 1 = 1 LIMIT 0, 10;";
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql);
+        return result;
     }
 }

@@ -12,8 +12,6 @@ $(document).ready(function () {
             type: 'GET',
             url: "/profile/getPersonal",
             success: function (result) {
-                alert("ajax in process");
-                console.log(result);
                 $('#cpName').val(result.firstName);
                 $('#cpSecondName').val(result.lastName);
                 $('#cpMiddleName').val(result.middleName);
@@ -26,9 +24,9 @@ $(document).ready(function () {
         }
     );
 
-    if($('#cpName').val() == "" ||
+    if ($('#cpName').val() == "" ||
         $('#cpSecondName').val() == "" ||
-        $('#cpMiddleName').val() == ""){
+        $('#cpMiddleName').val() == "") {
         $('#cpName').prop('readOnly', false);
         $('#cpSecondName').prop('readOnly', false);
         $('#cpMiddleName').prop('readOnly', false);
@@ -71,18 +69,17 @@ $(document).ready(function () {
         alert($('#cpName').val() == "" ||
             $('#cpSecondName').val() == "" ||
             $('#cpMiddleName').val() == "");
-        if($('#cpName').val() == "" ||
+        if ($('#cpName').val() == "" ||
             $('#cpSecondName').val() == "" ||
-            $('#cpMiddleName').val() == ""){
+            $('#cpMiddleName').val() == "") {
             alert("Заполните все поля");
-        }else {
+        } else {
             $('#personalMsg').hide();
             var personalInfo = {
                 firstName: $('#cpName').val(),
                 lastName: $('#cpSecondName').val(),
                 middleName: $('#cpMiddleName').val()
             };
-            console.log(personalInfo);
             $.ajax
             (
                 {
@@ -94,8 +91,6 @@ $(document).ready(function () {
                     },
                     data: JSON.stringify(personalInfo),
                     success: function (result) {
-                        alert("ajax in process");
-                        console.log(result);
                     },
                     error: function (request, status, error) {
                         var statusCode = request.status;
@@ -107,8 +102,30 @@ $(document).ready(function () {
         }
     });
 
-});
+    $.ajax
+    (
+        {
+            type: 'GET',
+            url: "/profile/getAllBooks",
+            success: function (result) {
+                var rows = 10, cols = 3;
+                for (var i = 0; i < rows; i++) {
+                    $('#allBooks').append('<tr id="row'+ i +'">');
+                    for (var j = 0; j < cols; j++) {
+                        $('#row'+ i +'').append( '<td>' + result[i][j] + '</td>');
+                    }
+                    $('#allBooks').append('</tr>')
+                }
+                console.log(result);
+            },
+            error: function (request, status, error) {
+                var statusCode = request.status;
+                console.log(statusCode);
+            }
+        }
+    );
 
+});
 
 
 function showAll() {
