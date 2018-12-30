@@ -50,8 +50,5 @@ public class ProfileRestController {
     public String[][] getAllBooks(){
         return bookService.getAllBooks();
     }
-//    @GetMapping("/showAll")
-//    public ResponseEntity<?> showAll(){
-//        bookRepository
-//    }
+
 }

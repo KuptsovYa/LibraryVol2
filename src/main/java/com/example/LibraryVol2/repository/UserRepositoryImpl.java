@@ -29,36 +29,20 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
 
     @Override
     public boolean checkEqualsLogin(UsersEntity user) {
-        boolean flag = false;
-        try {
-            String sql = "SELECT COUNT(*) FROM users WHERE login = ?";
-            Object[] params = new Object[]{user.getLogin()};
-            Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
-            if (count != null) {
-                flag = true;
-            } else flag = false;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return flag;
-        }
-
+        String sql = "SELECT COUNT(*) FROM users WHERE login = ?";
+        Object[] params = new Object[]{user.getLogin()};
+        Integer count = jdbcOperations.queryForObject(sql, params, Integer.class);
+        if (count != null) {
+            return true;
+        } else return false;
     }
 
     @Override
     public UsersEntity findByLogin(String login) {
-        UsersEntity usersEntity = new UsersEntity();
-        try {
-            String sql = "SELECT login, password FROM users WHERE login = ?";
-            Object[] params = new Object[]{login};
-            UserDto result = (UserDto) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UserDto.class));
-            usersEntity.setLogin(result.getLogin());
-            usersEntity.setPassword(result.getPassword());
-            return usersEntity;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return usersEntity;
-        }
+        String sql = "SELECT login, password FROM users WHERE login = ?";
+        Object[] params = new Object[]{login};
+        UsersEntity usersEntity = (UsersEntity) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UsersEntity.class));
+        return usersEntity;
     }
 }
+

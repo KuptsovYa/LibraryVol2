@@ -21,16 +21,9 @@ public class PersonalRepositoryImpl implements PersonalRepository {
 
     @Override
     public List<Map<String, Object>> getPersonalInfo(String login) {
-        List<Map<String, Object>> result = new ArrayList<>();
-        try {
-            String sql1 = "SELECT firstName, lastName, middleName FROM personal p " +
-                    "INNER JOIN users u ON p.users_idusers = u.idusers where u.login = ?";
-            String sql2 = "SELECT firstName, lastName, middleName FROM personal" +
-                    " WHERE users_idusers = (SELECT idusers FROM users WHERE login = ?)";
-            result = jdbcOperations.queryForList(sql1, new Object[]{login});
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String sql1 = "SELECT firstName, lastName, middleName FROM personal p " +
+                "INNER JOIN users u ON p.users_idusers = u.idusers where u.login = ?";
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql1, new Object[]{login});
         return result;
     }
 
