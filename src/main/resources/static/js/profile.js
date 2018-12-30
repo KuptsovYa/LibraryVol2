@@ -126,25 +126,3 @@ $(document).ready(function () {
     );
 
 });
-
-
-function showAll() {
-
-}
-
-var f = function () {
-    $.ajax({
-        method: 'POST',
-        headers: {
-            'contentType': 'application/json',
-            'dataType': 'json'
-        },
-        url: '/profile/addBook',
-        // dataType: 'json',
-        data: book
-    }).fail(function (error) {
-        console.log(error);
-    }).done(function (data) {
-        console.log(data);
-    })
-};
