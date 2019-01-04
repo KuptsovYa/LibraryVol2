@@ -96,7 +96,6 @@
     </tr>
     <tr>
         <button type="submit" id="lstbooksbtn" onclick="showAll()">Перейти к списку книг</button>
-        <!--VOT TYT BYDYT KNIGI-->
     </tr>
 </table>
 <table id="allBooks" class="display" width="100%">
@@ -107,8 +106,14 @@
         <th>Название</th>
     </tr>
     </thead>
-
+    <tbody id="allBooksBody" ></tbody>
 </table>
-
+<div>
+    <div>
+        <button id="leftButton"> <<-- </button>
+        <input id="pageOfBooks" value="0">
+        <button id="rightButton"> -->> </button>
+    </div>
+</div>
 </body>
 </html>

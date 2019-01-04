@@ -26,9 +26,9 @@ public class PersonalServiceImpl implements PersonalService {
     public PersonalDto getPersonal(String login) {
         PersonalDto person = new PersonalDto();
         try {
-            logger.error("Getting personal user data of user " + login);
+            logger.info("Getting personal user data of user " + login);
             List<Map<String, Object>> personal = personalRepository.getPersonalInfo(login);
-            logger.error("Personal data of user " + login + " was taken successfully");
+            logger.info("Personal data of user " + login + " was taken successfully");
             List<String> result = new ArrayList<>();
             if (personal.size() == 0) {
                 return null;

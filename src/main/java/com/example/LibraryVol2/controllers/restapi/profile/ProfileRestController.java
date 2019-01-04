@@ -3,6 +3,7 @@ package com.example.LibraryVol2.controllers.restapi.profile;
 import com.example.LibraryVol2.configuration.IAuthenticationFacade;
 import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.PersonalDto;
+import com.example.LibraryVol2.entity.PageDto;
 import com.example.LibraryVol2.service.BookService;
 import com.example.LibraryVol2.service.PersonalService;
 import com.example.LibraryVol2.service.WordsService;
@@ -41,14 +42,16 @@ public class ProfileRestController {
 
     @PostMapping("/profile/addBook")
     public BookDto addBook(@RequestBody BookDto bookDTO){
-        BookDto newBook = new BookDto(bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent());
+        Authentication authentication = authenticationFacade.getAuthentication();
+        BookDto newBook = new BookDto(bookDTO.getAuthor(), bookDTO.getTitle(),
+                bookDTO.getContent(), authentication.getName());
         bookService.addBook(newBook);
         return newBook;
     }
 
-    @GetMapping("/profile/getAllBooks")
-    public String[][] getAllBooks(){
-        return bookService.getAllBooks();
+    @PostMapping("/profile/getAllBooks")
+    public String[][] getAllBooks(@RequestBody PageDto pageDto){
+        return bookService.getAllBooks(pageDto);
     }
 
 }

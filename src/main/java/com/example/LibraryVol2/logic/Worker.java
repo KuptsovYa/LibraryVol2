@@ -21,6 +21,7 @@ public class Worker {
     }
 
     public void addToDB(BookDto book){
+
         book.setUnDesirable(countUnDesirableWords(book.getContent()));
         bookRepository.addBook(book);
     }
@@ -53,7 +54,6 @@ public class Worker {
             e.printStackTrace();
         }
 
-        System.out.println(sumCount + " Summary count of equals words");
         return sumCount;
     }
 }

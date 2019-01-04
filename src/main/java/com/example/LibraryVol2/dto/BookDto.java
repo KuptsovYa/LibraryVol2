@@ -5,24 +5,30 @@ public class BookDto {
     private String author;
     private String title;
     private String content;
-    private int userId;
+    private String userName;
+    private Long userId;
     private int unDesirable;
 
     public BookDto() {
     }
 
-    public BookDto(String author, String title, String content) {
+    public BookDto(String author, String title, String content, String userName) {
         this.author = author;
         this.title = title;
         this.content = content;
+        this.userName = userName;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getAuthor() { return author; }
