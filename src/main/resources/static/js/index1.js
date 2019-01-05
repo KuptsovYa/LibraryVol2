@@ -65,7 +65,6 @@ $(document).ready(function () {
             var login = $('#vlogin_reg').val();
 
             var url = '/loginCheck/' + login;
-            alert("focusout s logina " + url);
             $.ajax
             (
                 {
@@ -73,9 +72,6 @@ $(document).ready(function () {
                     url: url,
                     async: true,
                     success: function (result) {
-                        alert("ajax in process");
-                        alert(result);
-                        if (result == true){alert("true")}
                         if (result == false) {
                             blockReg = true;
                             $('#vinvalidpass_reg').css('display', 'block');
@@ -96,12 +92,10 @@ $(document).ready(function () {
 
     $("#submitbtn_reg").click(
         function regFunction() {
-        alert("click na button" + blockReg);
         if (blockReg == true) {
             event.preventDefault();
         }
         else {
-            alert("Ajax");
             $.ajax
             (
                 {

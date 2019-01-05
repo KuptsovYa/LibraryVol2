@@ -1,14 +1,11 @@
 package com.example.LibraryVol2.repository;
 
 import com.example.LibraryVol2.dto.BookDto;
-import com.example.LibraryVol2.entity.PageDto;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.example.LibraryVol2.dto.ConfigDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,9 +36,16 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
     }
 
     @Override
-    public List<Map<String, Object>> getAllBooks(PageDto pageDto) {
+    public List<Map<String, Object>> getPersonalBooks(ConfigDto configDto) {
+        String sql = "SELECT idbooks, author, title FROM books WHERE users_idusers = ? LIMIT ?, 10;";
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {configDto.getUserId(),configDto.getPage()*10});
+        return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllBooks(ConfigDto configDto) {
         String sql = "SELECT idbooks, author, title FROM books WHERE 1 = 1 LIMIT ?, 10;";
-        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {pageDto.getPage()*10});
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {configDto.getPage()*10});
         return result;
     }
 }

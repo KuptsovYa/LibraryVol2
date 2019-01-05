@@ -20,8 +20,6 @@ $(document).ready(function () {
                 if ($('#cpName').val() == "" ||
                     $('#cpSecondName').val() == "" ||
                     $('#cpMiddleName').val() == "") {
-                    console.log($('#cpName').val() + $('#cpSecondName').val() + $('#cpMiddleName').val());
-                    console.log($('#cpName').val() == "" + $('#cpSecondName').val() == "" + $('#cpMiddleName').val() == "");
                     $('#cpName').prop('readOnly', false);
                     $('#cpSecondName').prop('readOnly', false);
                     $('#cpMiddleName').prop('readOnly', false);
@@ -39,6 +37,7 @@ $(document).ready(function () {
             }
         }
     );
+
 
 
     $('#addbooksbtn').click(function () {
@@ -60,8 +59,8 @@ $(document).ready(function () {
         }).fail(function (error) {
             console.log(error);
         }).done(function (data) {
-            getAllBooks();
             console.log(data);
+            getAllBooks();
         })
 
     });
@@ -106,25 +105,41 @@ $(document).ready(function () {
         }
     });
 
+    var personal = false;
+    $("#allBooksButton").prop('disabled', true);
+
+    $("#personalBooksButton").click(function () {
+        personal = true;
+        $("#personalBooksButton").prop('disabled', true);
+        $("#allBooksButton").prop('disabled', false);
+        getAllBooks(personal);
+    });
+
+    $("#allBooksButton").click(function () {
+        personal = false;
+        $("#allBooksButton").prop('disabled', true);
+        $("#personalBooksButton").prop('disabled', false);
+        getAllBooks(personal);
+    });
+
     $("#leftButton").click(function () {
             var value = parseInt($("#pageOfBooks").val()) - 1;
             $("#pageOfBooks").val(value);
             if ($("#pageOfBooks").val() < 0) {
                 $("#pageOfBooks").val(0);
             }
-            getAllBooks();
+            getAllBooks(personal);
         }
     );
 
     $("#rightButton").click(function () {
             var value = parseInt($("#pageOfBooks").val()) + 1;
             $("#pageOfBooks").val(value);
-            getAllBooks();
+            getAllBooks(personal);
         }
     );
 
-
-    function getAllBooks() {
+    function getAllBooks(personal) {
         $("#allBooksBody tr").remove();
         $.ajax
         (
@@ -136,11 +151,11 @@ $(document).ready(function () {
                     'dataType': 'json'
                 },
                 data: JSON.stringify({
-                    page: parseInt($("#pageOfBooks").val())
+                    page: parseInt($("#pageOfBooks").val()),
+                    personal: personal
                 }),
                 success: function (result) {
-                    console.log(result);
-                    if (result.length == 0) {
+                    if (result.length == 0 && $("#pageOfBooks").val() != 0 ) {
                         var count = parseInt($("#pageOfBooks").val()) - 1;
                         $("#pageOfBooks").val(count);
                         getAllBooks();
@@ -153,7 +168,6 @@ $(document).ready(function () {
                         }
                         $('#allBooksBody').append('</tr>')
                     }
-                    console.log(result);
                 },
                 error: function (request, status, error) {
                     var statusCode = request.status;
@@ -163,7 +177,7 @@ $(document).ready(function () {
         );
     }
 
-    getAllBooks();
-
+    getAllBooks(personal);
 });
+
 

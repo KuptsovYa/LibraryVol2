@@ -3,16 +3,12 @@ package com.example.LibraryVol2.controllers.restapi.profile;
 import com.example.LibraryVol2.configuration.IAuthenticationFacade;
 import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.PersonalDto;
-import com.example.LibraryVol2.entity.PageDto;
+import com.example.LibraryVol2.dto.ConfigDto;
 import com.example.LibraryVol2.service.BookService;
 import com.example.LibraryVol2.service.PersonalService;
-import com.example.LibraryVol2.service.WordsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 public class ProfileRestController {
@@ -43,15 +39,17 @@ public class ProfileRestController {
     @PostMapping("/profile/addBook")
     public BookDto addBook(@RequestBody BookDto bookDTO){
         Authentication authentication = authenticationFacade.getAuthentication();
-        BookDto newBook = new BookDto(bookDTO.getAuthor(), bookDTO.getTitle(),
-                bookDTO.getContent(), authentication.getName());
-        bookService.addBook(newBook);
-        return newBook;
+        bookDTO.setUserName(authentication.getName());
+        bookService.addBook(bookDTO);
+        return bookDTO;
     }
 
     @PostMapping("/profile/getAllBooks")
-    public String[][] getAllBooks(@RequestBody PageDto pageDto){
-        return bookService.getAllBooks(pageDto);
+    public String[][] getAllBooks(@RequestBody ConfigDto configDto){
+        Authentication authentication = authenticationFacade.getAuthentication();
+        configDto.setUserName(authentication.getName());
+        return bookService.getAllBooks(configDto);
     }
+
 
 }
