@@ -2,6 +2,7 @@ package com.example.LibraryVol2.dto;
 
 public class BookDto {
 
+    private Integer bookId;
     private String author;
     private String title;
     private String content;
@@ -17,6 +18,14 @@ public class BookDto {
         this.title = title;
         this.content = content;
         this.userName = userName;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public Long getUserId() {

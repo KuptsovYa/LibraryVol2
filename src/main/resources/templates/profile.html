@@ -109,13 +109,15 @@
     <tbody id="allBooksBody"></tbody>
 </table>
 <div>
-    <div>
-        <button id="leftButton"> <<-- </button>
+    <div id="litArea">
+        <textarea id="bookContentArea" wrap="hard" rows="25" cols="180" style="resize:none">data</textarea>
+        <button id="leftButton"> <<--</button>
         <input id="pageOfBooks" value="0">
-        <button id="rightButton"> -->> </button>
+        <button id="rightButton"> -->></button>
         <button id="personalBooksButton">Показать только ваши книги</button>
         <button id="allBooksButton">Показать все книги</button>
     </div>
 </div>
+<button id="returnTableButton" onclick="returnTable()">Вернуться к таблице</button>
 </body>
 </html>

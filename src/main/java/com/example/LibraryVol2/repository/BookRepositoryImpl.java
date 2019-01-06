@@ -2,6 +2,7 @@ package com.example.LibraryVol2.repository;
 
 import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.ConfigDto;
+import com.example.LibraryVol2.entity.BooksEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
@@ -27,32 +28,32 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
         jdbcOperations.update(sql, params);
         return true;
     }
-    
+
     @Override
     public Long getIdByName(String name) {
         String sql = "SELECT idusers FROM users WHERE login = ?";
-        Long result = jdbcOperations.queryForObject(sql, new Object[] {name}, Long.class);
+        Long result = jdbcOperations.queryForObject(sql, new Object[]{name}, Long.class);
         return result;
     }
 
     @Override
     public List<Map<String, Object>> getPersonalBooks(ConfigDto configDto) {
         String sql = "SELECT idbooks, author, title FROM books WHERE users_idusers = ? LIMIT ?, 10;";
-        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {configDto.getUserId(),configDto.getPage()*10});
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[]{configDto.getUserId(), configDto.getPage() * 10});
         return result;
     }
 
     @Override
     public List<Map<String, Object>> getAllBooks(ConfigDto configDto) {
         String sql = "SELECT idbooks, author, title FROM books WHERE 1 = 1 LIMIT ?, 10;";
-        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {configDto.getPage()*10});
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[]{configDto.getPage() * 10});
         return result;
     }
 
     @Override
-    public String getContentByTitle(String name) {
-        String sql = "SELECT content FROM books WHERE title = ?";
-        String result = jdbcOperations.queryForObject(sql, new Object[] {name}, String.class);
+    public String getContentByTitle(BooksEntity booksEntity) {
+        String sql = "SELECT content FROM books WHERE idbooks = ?";
+        String result = jdbcOperations.queryForObject(sql, new Object[]{booksEntity.getIdbooks()}, String.class);
         return result;
     }
 }

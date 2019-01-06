@@ -2,8 +2,10 @@ package com.example.LibraryVol2.service;
 
 import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.ConfigDto;
+import com.example.LibraryVol2.entity.BooksEntity;
 import com.example.LibraryVol2.repository.BookRepository;
 import org.apache.logging.log4j.*;
+import static java.lang.Math.toIntExact;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,12 +73,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String getBookContent(String title) {
+    public String getBookContent(BookDto bookDTO) {
         try {
-            logger.info("trying to take book content of" + title);
-            return bookRepository.getContentByTitle(title);
+            logger.info("trying to take book with id "+ bookDTO.getBookId() +" content");
+            BooksEntity booksEntity = new BooksEntity();
+            booksEntity.setIdbooks(bookDTO.getBookId());
+            String result = bookRepository.getContentByTitle(booksEntity);
+            logger.info("book has taken successfully");
+            return result;
         }catch (Exception e){
-            logger.error("book with title: " + title + " not found");
+            logger.error("book with id: " + bookDTO.getBookId() + " not found");
             return "";
         }
     }

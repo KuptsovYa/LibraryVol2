@@ -6,6 +6,8 @@ $(document).ready(function () {
         xhr.setRequestHeader(header, token);
     });
 
+    $('#bookContentArea').hide();
+    $('#returnTableButton').hide();
 
     $.ajax
     (
@@ -163,11 +165,8 @@ $(document).ready(function () {
                     for (var i = 0; i < rows; i++) {
                         $('#allBooksBody').append('<tr id="row' + i + '">');
                         for (var j = 0; j < cols; j++) {
-                            if(j == 2){
-                                $('#row' + i + '').append('<td><input value="' + result[i][j] + '" readonly="readonly"/></td>');
-                            }else {
-                                $('#row' + i + '').append('<td>' + result[i][j] + '</td>');
-                            }
+                            $('#row' + i + '').append('<td id="' + j + '">' + result[i][j] + '</td>');
+
 
                         }
                         $('#allBooksBody').append('</tr>')
@@ -181,17 +180,39 @@ $(document).ready(function () {
         );
     }
 
-    $('#allBooksBody').on('click','input',function(){
-        var bookName = $(this).val();
+    $('#allBooksBody').on('click', 'tr', function () {
+        var bookId = $(this).closest('tr').children('td:first').text();
+        var url = '/profile/' + bookId;
+        console.log(url);
         $.ajax({
             method: 'GET',
-            url: '/profile/' + bookName
+            url: '/profile/' + bookId
         }).fail(function (error) {
             console.log(error);
         }).done(function (data) {
+            $('#allBooks').hide("slow");
+            $("#allBooksButton").hide("slow");
+            $("#personalBooksButton").hide("slow");
+            $("#leftButton").hide("slow");
+            $("#rightButton").hide("slow");
+            $("#pageOfBooks").hide("slow");
+            $('#bookContentArea').show();
+            $('#returnTableButton').show();
+            $('#bookContentArea').val(data);
             console.log(data);
         })
     });
 
     getAllBooks(personal);
 });
+
+function returnTable(){
+    $('#allBooks').show("slow");
+    $("#allBooksButton").show("slow");
+    $("#personalBooksButton").show("slow");
+    $("#leftButton").show("slow");
+    $("#pageOfBooks").show("slow");
+    $("#rightButton").show("slow");
+    $('#bookContentArea').hide("slow");
+    $('#returnTableButton').hide("slow");
+}

@@ -52,8 +52,10 @@ public class ProfileRestController {
     }
 
 
-    @GetMapping("/profile/{bookName}")
-    public String getBookContent(@PathVariable String bookName){
-        return bookService.getBookContent(bookName);
+    @GetMapping("/profile/{bookId}")
+    public String getBookContent(@PathVariable String bookId){
+        BookDto bookDto = new BookDto();
+        bookDto.setBookId(Integer.valueOf(bookId));
+        return bookService.getBookContent(bookDto);
     }
 }

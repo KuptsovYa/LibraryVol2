@@ -2,6 +2,7 @@ package com.example.LibraryVol2.repository;
 
 import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.ConfigDto;
+import com.example.LibraryVol2.entity.BooksEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -16,5 +17,5 @@ public interface BookRepository<B extends BookDto>  {
 
     List<Map<String, Object>> getPersonalBooks(ConfigDto configDto);
 
-    String getContentByTitle(String name);
+    String getContentByTitle(BooksEntity booksEntity);
 }

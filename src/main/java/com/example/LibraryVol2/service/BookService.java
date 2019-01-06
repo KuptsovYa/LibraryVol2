@@ -14,5 +14,5 @@ public interface BookService {
 
     String[][] createArrOfBooks(List<Map<String, Object>> list);
 
-    String getBookContent(String title);
+    String getBookContent(BookDto bookDTO);
 }
