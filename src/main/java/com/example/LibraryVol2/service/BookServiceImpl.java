@@ -69,4 +69,15 @@ public class BookServiceImpl implements BookService {
         logger.info("books successfully transferred from the db");
         return values;
     }
+
+    @Override
+    public String getBookContent(String title) {
+        try {
+            logger.info("trying to take book content of" + title);
+            return bookRepository.getContentByTitle(title);
+        }catch (Exception e){
+            logger.error("book with title: " + title + " not found");
+            return "";
+        }
+    }
 }

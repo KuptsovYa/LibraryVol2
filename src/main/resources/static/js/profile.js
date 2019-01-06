@@ -39,7 +39,6 @@ $(document).ready(function () {
     );
 
 
-
     $('#addbooksbtn').click(function () {
         var name = $('#cpName').val().slice(0, 1) + ".";
         var middleName = $('#cpMiddleName').val().slice(0, 1) + ". ";
@@ -155,7 +154,7 @@ $(document).ready(function () {
                     personal: personal
                 }),
                 success: function (result) {
-                    if (result.length == 0 && $("#pageOfBooks").val() != 0 ) {
+                    if (result.length == 0 && $("#pageOfBooks").val() != 0) {
                         var count = parseInt($("#pageOfBooks").val()) - 1;
                         $("#pageOfBooks").val(count);
                         getAllBooks();
@@ -164,7 +163,12 @@ $(document).ready(function () {
                     for (var i = 0; i < rows; i++) {
                         $('#allBooksBody').append('<tr id="row' + i + '">');
                         for (var j = 0; j < cols; j++) {
-                            $('#row' + i + '').append('<td>' + result[i][j] + '</td>');
+                            if(j == 2){
+                                $('#row' + i + '').append('<td><input value="' + result[i][j] + '" readonly="readonly"/></td>');
+                            }else {
+                                $('#row' + i + '').append('<td>' + result[i][j] + '</td>');
+                            }
+
                         }
                         $('#allBooksBody').append('</tr>')
                     }
@@ -177,7 +181,17 @@ $(document).ready(function () {
         );
     }
 
+    $('#allBooksBody').on('click','input',function(){
+        var bookName = $(this).val();
+        $.ajax({
+            method: 'GET',
+            url: '/profile/' + bookName
+        }).fail(function (error) {
+            console.log(error);
+        }).done(function (data) {
+            console.log(data);
+        })
+    });
+
     getAllBooks(personal);
 });
-
-

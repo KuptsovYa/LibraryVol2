@@ -48,4 +48,11 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
         List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[] {configDto.getPage()*10});
         return result;
     }
+
+    @Override
+    public String getContentByTitle(String name) {
+        String sql = "SELECT content FROM books WHERE title = ?";
+        String result = jdbcOperations.queryForObject(sql, new Object[] {name}, String.class);
+        return result;
+    }
 }

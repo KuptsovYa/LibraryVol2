@@ -13,4 +13,6 @@ public interface BookService {
     String[][] getAllBooks(ConfigDto configDto);
 
     String[][] createArrOfBooks(List<Map<String, Object>> list);
+
+    String getBookContent(String title);
 }
