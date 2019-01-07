@@ -1,5 +1,6 @@
 package com.example.LibraryVol2.repository;
 
+import com.example.LibraryVol2.entity.RolesEntity;
 import com.example.LibraryVol2.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,7 +25,6 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
     @Override
     @Transactional
     public void addAUser(UsersEntity user) {
-        try {
 
 //            String hashedPass = passwordEncoder.encode(user.getPassword());
 //            String sql = "BEGIN;" +
@@ -38,17 +38,14 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
 //            }
 //            jdbcOperations.update(sql, params);
 
-            String hashedpass = passwordEncoder.encode(user.getPassword());
-            String queryForUser = "INSERT INTO users(login, password) VALUES (?, ?)";
-            Object[] params = new Object[]{user.getLogin(), hashedpass};
-            jdbcOperations.update(queryForUser, params);
-            String lastId = "SELECT LAST_INSERT_ID()";
-            Long id = jdbcOperations.queryForObject(lastId, Long.class);
-            String queryForRoles = "INSERT INTO roles(role, users_idusers) VALUES (?, ?);";
-            jdbcOperations.update(queryForRoles, user.getRolesByIdusers().getRole(), id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String hashedpass = passwordEncoder.encode(user.getPassword());
+        String queryForUser = "INSERT INTO users(login, password) VALUES (?, ?)";
+        Object[] params = new Object[]{user.getLogin(), hashedpass};
+        jdbcOperations.update(queryForUser, params);
+        String lastId = "SELECT LAST_INSERT_ID()";
+        Long id = jdbcOperations.queryForObject(lastId, Long.class);
+        String queryForRoles = "INSERT INTO roles(role, users_idusers) VALUES (?, ?);";
+        jdbcOperations.update(queryForRoles, user.getRolesByIdusers().getRole(), id);
     }
 
     @Override
@@ -62,10 +59,17 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
     }
 
     @Override
+    @Transactional
     public UsersEntity findByLogin(String login) {
-        String sql = "SELECT login, password FROM users WHERE login = ?";
+        // Не забыть добавить проверку на роли
+        String sql = "SELECT idusers, login, password FROM users WHERE login = ?";
         Object[] params = new Object[]{login};
         UsersEntity usersEntity = (UsersEntity) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UsersEntity.class));
+        String sql1 = "SELECT role FROM roles WHERE users_idusers = ?";
+        String role = jdbcOperations.queryForObject(sql1, new Object[]{usersEntity.getIdusers()}, String.class);
+        RolesEntity rolesEntity = new RolesEntity();
+        rolesEntity.setRole(role);
+        usersEntity.setRolesByIdusers(rolesEntity);
         return usersEntity;
     }
 }
