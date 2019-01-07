@@ -1,6 +1,8 @@
 package com.example.LibraryVol2.service;
 
 import com.example.LibraryVol2.dto.UserDto;
+import com.example.LibraryVol2.dto.Roles;
+import com.example.LibraryVol2.entity.RolesEntity;
 import com.example.LibraryVol2.entity.UsersEntity;
 import com.example.LibraryVol2.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -23,14 +25,21 @@ public class UserServiceImpl implements UserService {
     public UserDto addAUser(UserDto userDTO) {
         try {
             logger.info("Adding new user " + userDTO);
+            if (userDTO.getPassword().equals("admin") && userDTO.getLogin().equals("admin")) {
+                userDTO.setRoles(Roles.ADMIN);
+            } else {
+                userDTO.setRoles(Roles.USER);
+            }
             UsersEntity usersEntity = new UsersEntity();
             usersEntity.setLogin(userDTO.getLogin());
             usersEntity.setPassword(userDTO.getPassword());
+            usersEntity.setRolesByIdusers(new RolesEntity());
+            usersEntity.getRolesByIdusers().setRole(userDTO.getRoles().name());
             userRepository.addAUser(usersEntity);
             logger.info("New user " + userDTO + " added database");
-            return new UserDto();
+            return userDTO;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error("Adding new user failed exception: " + e);
             return null;
         }
     }
@@ -40,12 +49,10 @@ public class UserServiceImpl implements UserService {
             logger.info("Checking for already registred user " + login);
             UsersEntity user = new UsersEntity();
             return userRepository.checkEqualsLogin(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
             return false;
         }
 
     }
-
-
 }

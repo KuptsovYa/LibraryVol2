@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "books", schema = "librarydb", catalog = "")
+@Table(name = "books", schema = "librarydb")
 @IdClass(BooksEntityPK.class)
 public class BooksEntity {
     private int idbooks;
@@ -15,7 +15,7 @@ public class BooksEntity {
     private UsersEntity usersByUsersIdusers;
 
     @Id
-    @Column(name = "idbooks")
+    @Column(name = "idbooks", nullable = false)
     public int getIdbooks() {
         return idbooks;
     }
@@ -25,7 +25,7 @@ public class BooksEntity {
     }
 
     @Basic
-    @Column(name = "author")
+    @Column(name = "author", nullable = false, length = 45)
     public String getAuthor() {
         return author;
     }
@@ -35,7 +35,7 @@ public class BooksEntity {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 45)
     public String getTitle() {
         return title;
     }
@@ -45,7 +45,7 @@ public class BooksEntity {
     }
 
     @Basic
-    @Column(name = "content")
+    @Column(name = "content", nullable = false, length = -1)
     public String getContent() {
         return content;
     }
@@ -55,7 +55,7 @@ public class BooksEntity {
     }
 
     @Id
-    @Column(name = "users_idusers", insertable=false, updatable=false)
+    @Column(name = "users_idusers", nullable = false, insertable = false, updatable = false)
     public int getUsersIdusers() {
         return usersIdusers;
     }
@@ -81,8 +81,9 @@ public class BooksEntity {
         return Objects.hash(idbooks, author, title, content, usersIdusers);
     }
 
+
     @ManyToOne
-    @JoinColumn(name = "users_idusers", referencedColumnName = "idusers", nullable = false)
+    @JoinColumn(name = "users_idusers", referencedColumnName = "idusers", nullable = false, insertable = false, updatable = false)
     public UsersEntity getUsersByUsersIdusers() {
         return usersByUsersIdusers;
     }

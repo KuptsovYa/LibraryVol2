@@ -1,7 +1,6 @@
 package com.example.LibraryVol2.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -10,11 +9,11 @@ public class UsersEntity {
     private int idusers;
     private String login;
     private String password;
-    private Collection<BooksEntity> booksByIdusers;
     private PersonalEntity personalByIdusers;
+    private RolesEntity rolesByIdusers;
 
     @Id
-    @Column(name = "idusers")
+    @Column(name = "idusers", nullable = false)
     public int getIdusers() {
         return idusers;
     }
@@ -24,7 +23,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, length = 45)
     public String getLogin() {
         return login;
     }
@@ -34,7 +33,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "password")
+    @Column(name = "password", nullable = false, length = 256)
     public String getPassword() {
         return password;
     }
@@ -58,21 +57,21 @@ public class UsersEntity {
         return Objects.hash(idusers, login, password);
     }
 
-    @OneToMany(mappedBy = "usersByUsersIdusers")
-    public Collection<BooksEntity> getBooksByIdusers() {
-        return booksByIdusers;
-    }
-
-    public void setBooksByIdusers(Collection<BooksEntity> booksByIdusers) {
-        this.booksByIdusers = booksByIdusers;
-    }
-
-    @OneToOne(mappedBy = "usersByUsersIdusers")
+    @OneToOne(mappedBy = "usersByUsersIdusers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public PersonalEntity getPersonalByIdusers() {
         return personalByIdusers;
     }
 
     public void setPersonalByIdusers(PersonalEntity personalByIdusers) {
         this.personalByIdusers = personalByIdusers;
+    }
+
+    @OneToOne(mappedBy = "usersByUsersIdusers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public RolesEntity getRolesByIdusers() {
+        return rolesByIdusers;
+    }
+
+    public void setRolesByIdusers(RolesEntity rolesByIdusers) {
+        this.rolesByIdusers = rolesByIdusers;
     }
 }

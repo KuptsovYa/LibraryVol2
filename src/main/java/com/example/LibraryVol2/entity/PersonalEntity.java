@@ -4,16 +4,16 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "personal", schema = "librarydb", catalog = "")
+@Table(name = "personal", schema = "librarydb")
 public class PersonalEntity {
     private String firstName;
     private String lastName;
-    private String patronicName;
+    private String middleName;
     private int usersIdusers;
     private UsersEntity usersByUsersIdusers;
 
     @Basic
-    @Column(name = "firstName")
+    @Column(name = "firstName", nullable = false, length = 45)
     public String getFirstName() {
         return firstName;
     }
@@ -23,7 +23,7 @@ public class PersonalEntity {
     }
 
     @Basic
-    @Column(name = "lastName")
+    @Column(name = "lastName", nullable = false, length = 45)
     public String getLastName() {
         return lastName;
     }
@@ -33,17 +33,17 @@ public class PersonalEntity {
     }
 
     @Basic
-    @Column(name = "patronicName")
-    public String getPatronicName() {
-        return patronicName;
+    @Column(name = "middleName", nullable = false, length = 45)
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setPatronicName(String patronicName) {
-        this.patronicName = patronicName;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     @Id
-    @Column(name = "users_idusers")
+    @Column(name = "users_idusers", nullable = false)
     public int getUsersIdusers() {
         return usersIdusers;
     }
@@ -60,12 +60,12 @@ public class PersonalEntity {
         return usersIdusers == that.usersIdusers &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(patronicName, that.patronicName);
+                Objects.equals(middleName, that.middleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, patronicName, usersIdusers);
+        return Objects.hash(firstName, lastName, middleName, usersIdusers);
     }
 
     @OneToOne

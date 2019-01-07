@@ -1,13 +1,12 @@
 package com.example.LibraryVol2.dto;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Entity;
+import java.util.Set;
 
 public class UserDto {
 
     private String login;
     private String password;
+    private Roles roles;
 
     public UserDto() {
 
@@ -16,6 +15,14 @@ public class UserDto {
     public UserDto(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 
     public String getLogin() {
@@ -41,4 +48,5 @@ public class UserDto {
                 ", password='" + password + '\'' +
                 '}';
     }
+
 }

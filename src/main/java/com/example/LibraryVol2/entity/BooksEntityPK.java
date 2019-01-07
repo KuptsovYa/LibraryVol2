@@ -1,17 +1,15 @@
 package com.example.LibraryVol2.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
 public class BooksEntityPK implements Serializable {
     private int idbooks;
     private int usersIdusers;
 
-    @Column(name = "idbooks")
+    @Column(name = "idbooks", nullable = false)
     @Id
     public int getIdbooks() {
         return idbooks;
@@ -21,7 +19,7 @@ public class BooksEntityPK implements Serializable {
         this.idbooks = idbooks;
     }
 
-    @Column(name = "users_idusers", insertable=false, updatable=false)
+    @Column(name = "users_idusers", nullable = false)
     @Id
     public int getUsersIdusers() {
         return usersIdusers;
