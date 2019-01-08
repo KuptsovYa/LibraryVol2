@@ -8,7 +8,10 @@ import com.example.LibraryVol2.service.BookService;
 import com.example.LibraryVol2.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
 
 @RestController
 public class ProfileRestController {
@@ -56,6 +59,10 @@ public class ProfileRestController {
     public String getBookContent(@PathVariable String bookId){
         BookDto bookDto = new BookDto();
         bookDto.setBookId(Integer.valueOf(bookId));
+        Authentication authentication = authenticationFacade.getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        boolean authorized = authorities.contains("USER");
+        System.out.println(authorized);
         return bookService.getBookContent(bookDto);
     }
 }

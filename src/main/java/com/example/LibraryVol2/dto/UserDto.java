@@ -1,12 +1,10 @@
 package com.example.LibraryVol2.dto;
 
-import java.util.Set;
-
 public class UserDto {
 
     private String login;
     private String password;
-    private Roles roles;
+    private RoleDto roles;
 
     public UserDto() {
 
@@ -17,11 +15,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public Roles getRoles() {
+    public RoleDto getRoles() {
         return roles;
     }
 
-    public void setRoles(Roles roles) {
+    public void setRoles(RoleDto roles) {
         this.roles = roles;
     }
 
@@ -43,7 +41,7 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return "BookDto{" +
+        return "UserDto{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 '}';

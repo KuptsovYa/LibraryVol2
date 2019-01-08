@@ -1,11 +1,13 @@
 package com.example.LibraryVol2.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "roles", schema = "librarydb")
-public class RolesEntity {
+public class RolesEntity implements GrantedAuthority {
     private String role;
     private int usersIdusers;
     private UsersEntity usersByUsersIdusers;
@@ -52,5 +54,14 @@ public class RolesEntity {
 
     public void setUsersByUsersIdusers(UsersEntity usersByUsersIdusers) {
         this.usersByUsersIdusers = usersByUsersIdusers;
+    }
+
+    public void setAuthority(String role) {
+        this.role = role;
+    }
+
+    @Override
+    public String getAuthority() {
+        return role;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.LibraryVol2.service;
 
-import com.example.LibraryVol2.dto.Roles;
+import com.example.LibraryVol2.entity.RolesEntity;
 import com.example.LibraryVol2.entity.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,13 +21,14 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String role = this.usersEntity.getRolesByIdusers().getRole();
-        Set<Roles> roles = new HashSet<>();
-        if(role.equals(Roles.ADMIN.name())){
-            roles.add(Roles.ADMIN);
-        }else {
-            roles.add(Roles.USER);
-        }
+//        String role = usersEntity.getRolesByIdusers().getAuthority();
+        Set<RolesEntity> roles = new HashSet<>();
+        roles.add(usersEntity.getRolesByIdusers());
+//        if(role.equals("ADMIN")){
+//            roles.add(Roles.ADMIN);
+//        }else {
+//            roles.add(Roles.USER);
+//        }
         return roles;
     }
 

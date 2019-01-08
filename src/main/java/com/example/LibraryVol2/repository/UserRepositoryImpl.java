@@ -61,7 +61,6 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
     @Override
     @Transactional
     public UsersEntity findByLogin(String login) {
-        // Не забыть добавить проверку на роли
         String sql = "SELECT idusers, login, password FROM users WHERE login = ?";
         Object[] params = new Object[]{login};
         UsersEntity usersEntity = (UsersEntity) jdbcOperations.queryForObject(sql, params, new BeanPropertyRowMapper(UsersEntity.class));

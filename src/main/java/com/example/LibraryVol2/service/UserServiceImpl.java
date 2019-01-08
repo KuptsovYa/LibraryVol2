@@ -1,7 +1,7 @@
 package com.example.LibraryVol2.service;
 
+import com.example.LibraryVol2.dto.RoleDto;
 import com.example.LibraryVol2.dto.UserDto;
-import com.example.LibraryVol2.dto.Roles;
 import com.example.LibraryVol2.entity.RolesEntity;
 import com.example.LibraryVol2.entity.UsersEntity;
 import com.example.LibraryVol2.repository.UserRepository;
@@ -26,15 +26,15 @@ public class UserServiceImpl implements UserService {
         try {
             logger.info("Adding new user " + userDTO);
             if (userDTO.getPassword().equals("admin") && userDTO.getLogin().equals("admin")) {
-                userDTO.setRoles(Roles.ADMIN);
+                userDTO.setRoles(new RoleDto("ADMIN"));
             } else {
-                userDTO.setRoles(Roles.USER);
+                userDTO.setRoles(new RoleDto("USER"));
             }
             UsersEntity usersEntity = new UsersEntity();
             usersEntity.setLogin(userDTO.getLogin());
             usersEntity.setPassword(userDTO.getPassword());
             usersEntity.setRolesByIdusers(new RolesEntity());
-            usersEntity.getRolesByIdusers().setRole(userDTO.getRoles().name());
+            usersEntity.getRolesByIdusers().setRole(userDTO.getRoles().getAuthority());
             userRepository.addAUser(usersEntity);
             logger.info("New user " + userDTO + " added database");
             return userDTO;
