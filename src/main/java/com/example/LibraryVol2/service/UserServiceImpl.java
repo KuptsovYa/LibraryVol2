@@ -8,6 +8,7 @@ import com.example.LibraryVol2.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -16,10 +17,11 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private Logger logger = LogManager.getLogger(this);
+    private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDto addAUser(UserDto userDTO) {
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
             }
             UsersEntity usersEntity = new UsersEntity();
             usersEntity.setLogin(userDTO.getLogin());
-            usersEntity.setPassword(userDTO.getPassword());
+            usersEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             usersEntity.setRolesByIdusers(new RolesEntity());
             usersEntity.getRolesByIdusers().setRole(userDTO.getRoles().getAuthority());
             userRepository.addAUser(usersEntity);

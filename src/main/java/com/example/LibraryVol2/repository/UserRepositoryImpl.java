@@ -17,30 +17,15 @@ public class UserRepositoryImpl implements UserRepository<UsersEntity> {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRepositoryImpl(JdbcOperations jdbcOperations, PasswordEncoder passwordEncoder) {
+    public UserRepositoryImpl(JdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Transactional
     public void addAUser(UsersEntity user) {
-
-//            String hashedPass = passwordEncoder.encode(user.getPassword());
-//            String sql = "BEGIN;" +
-//                    "INSERT INTO users(login, password) VALUES (?, ?);" +
-//                    "SELECT LAST_INSERT_ID() INTO @users_idusers;" +
-//                    "INSERT INTO roles(role, users_idusers) VALUES (?, @users_idusers);" +
-//                    "COMMIT;";
-//            Object[] params = new Object[]{user.getLogin(), hashedPass, user.getRolesByIdusers().getRole()};
-//            for (Object o: params){
-//                System.out.println(o);
-//            }
-//            jdbcOperations.update(sql, params);
-
-        String hashedpass = passwordEncoder.encode(user.getPassword());
         String queryForUser = "INSERT INTO users(login, password) VALUES (?, ?)";
-        Object[] params = new Object[]{user.getLogin(), hashedpass};
+        Object[] params = new Object[]{user.getLogin(), user.getPassword()};
         jdbcOperations.update(queryForUser, params);
         String lastId = "SELECT LAST_INSERT_ID()";
         Long id = jdbcOperations.queryForObject(lastId, Long.class);
