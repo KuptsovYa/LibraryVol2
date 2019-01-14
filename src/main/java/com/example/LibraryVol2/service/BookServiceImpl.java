@@ -36,14 +36,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public String[][] getAllBooks(ConfigDto configDto) {
         logger.info("Getting all books on user profile");
+        int cols = 3, cnt = 0;
         try {
             if(configDto.isPersonal()){
                 configDto.setUserId(bookRepository.getIdByName(configDto.getUserName()));
                 List<Map<String, Object>> result = bookRepository.getPersonalBooks(configDto);
-                return createArrOfBooks(result);
+                return createArrOfBooks(result, cols, cnt);
             }else {
                 List<Map<String, Object>> result = bookRepository.getAllBooks(configDto);
-                return createArrOfBooks(result);
+                return createArrOfBooks(result, cols, cnt);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
@@ -52,7 +53,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String[][] createArrOfBooks(List<Map<String, Object>> list) {
+    public String[][] createArrOfBooks(List<Map<String, Object>> list, int cols, int cnt) {
         String[][] values;
         List<String> resultNew = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -61,13 +62,13 @@ public class BookServiceImpl implements BookService {
             }
         }
 
-        int cols = 3, cnt = 0;
         values = new String[list.size()][cols];
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < cols; j++) {
                 values[i][j] = resultNew.get(cnt++);
             }
         }
+
         logger.info("books successfully transferred from the db");
         return values;
     }
@@ -85,5 +86,18 @@ public class BookServiceImpl implements BookService {
             logger.error("book with id: " + bookDTO.getBookId() + " not found");
             return "";
         }
+    }
+
+    @Override
+    public String[][] getAllBooksImproper(ConfigDto configDto) {
+        logger.info("getting all books with improper words " + configDto.toString());
+        int cols = 4, cnt = 0;
+        try{
+            List<Map<String, Object>> result = bookRepository.getAllBooksImproper(configDto);
+            return createArrOfBooks(result, cols, cnt);
+        }catch (Exception e){
+            logger.error(e.getStackTrace());
+        }
+        return new String[0][0];
     }
 }

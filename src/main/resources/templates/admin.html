@@ -6,9 +6,31 @@
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{js/admin.js}" charset="utf-8"></script>
     <title>Title</title>
 </head>
 <body>
 <p> ADMIN PAGE</p>
+<div>
+    <table id="allBooksImproper" class="display" width="100%">
+        <thead>
+        <tr>
+            <th>Номер книги</th>
+            <th>Автор</th>
+            <th>Название</th>
+            <th>Количество нежелательных слов</th>
+        </tr>
+        </thead>
+        <tbody id="allBooksBody">
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <button id="leftButton"> <<--</button>
+    <input id="pageOfBooks" value="0">
+    <button id="rightButton"> -->></button>
+</div>
 </body>
 </html>

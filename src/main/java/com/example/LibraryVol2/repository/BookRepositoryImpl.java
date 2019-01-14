@@ -56,4 +56,11 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
         String result = jdbcOperations.queryForObject(sql, new Object[]{booksEntity.getIdbooks()}, String.class);
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> getAllBooksImproper(ConfigDto configDto) {
+        String sql = "SELECT idbooks, author, title, improperWordsCount FROM books WHERE 1 = 1 LIMIT ?, 10;";
+        List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[]{configDto.getPage() * 10});
+        return result;
+    }
 }

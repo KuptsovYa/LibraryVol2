@@ -18,4 +18,6 @@ public interface BookRepository<B extends BookDto>  {
     List<Map<String, Object>> getPersonalBooks(ConfigDto configDto);
 
     String getContentByTitle(BooksEntity booksEntity);
+
+    List<Map<String, Object>> getAllBooksImproper(ConfigDto configDto);
 }

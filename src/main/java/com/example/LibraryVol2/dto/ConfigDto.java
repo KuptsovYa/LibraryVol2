@@ -12,6 +12,10 @@ public class ConfigDto {
         this.personal = personal;
     }
 
+    public ConfigDto(int page) {
+        this.page = page;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -45,5 +49,15 @@ public class ConfigDto {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    @Override
+    public String toString() {
+        return "ConfigDto{" +
+                "page=" + page +
+                ", userName='" + userName + '\'' +
+                ", personal=" + personal +
+                ", userId=" + userId +
+                '}';
     }
 }

@@ -12,7 +12,9 @@ public interface BookService {
 
     String[][] getAllBooks(ConfigDto configDto);
 
-    String[][] createArrOfBooks(List<Map<String, Object>> list);
+    String[][] createArrOfBooks(List<Map<String, Object>> list, int cols, int cnt);
 
     String getBookContent(BookDto bookDTO);
+
+    String[][] getAllBooksImproper(ConfigDto configDto);
 }
