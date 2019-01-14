@@ -22,9 +22,9 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
 
     @Override
     public boolean addBook(BookDto bookDTO) {
-        String sql = "INSERT INTO books(author, title, content, users_idusers) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO books(author, title, content, users_idusers, improperWordsCount) VALUES (?,?,?,?,?)";
         Long id = getIdByName(bookDTO.getUserName());
-        Object[] params = new Object[]{bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent(), id};
+        Object[] params = new Object[]{bookDTO.getAuthor(), bookDTO.getTitle(), bookDTO.getContent(), id, bookDTO.getUnDesirable()};
         jdbcOperations.update(sql, params);
         return true;
     }

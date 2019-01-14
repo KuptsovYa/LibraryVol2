@@ -14,6 +14,7 @@ public class BooksEntity {
     private int usersIdusers;
     private UsersEntity usersByUsersIdusers;
 
+
     @Id
     @Column(name = "idbooks", nullable = false)
     public int getIdbooks() {
