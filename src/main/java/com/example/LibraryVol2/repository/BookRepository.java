@@ -20,4 +20,6 @@ public interface BookRepository<B extends BookDto>  {
     String getContentByTitle(BooksEntity booksEntity);
 
     List<Map<String, Object>> getAllBooksImproper(ConfigDto configDto);
+
+    void deleteBook(BooksEntity booksEntity);
 }

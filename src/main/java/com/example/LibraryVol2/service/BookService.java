@@ -17,4 +17,6 @@ public interface BookService {
     String getBookContent(BookDto bookDTO);
 
     String[][] getAllBooksImproper(ConfigDto configDto);
+
+    BookDto deleteBook(BookDto bookDto);
 }

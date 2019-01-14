@@ -20,6 +20,10 @@ public class BookDto {
         this.userName = userName;
     }
 
+    public BookDto(Integer bookId) {
+        this.bookId = bookId;
+    }
+
     public Integer getBookId() {
         return bookId;
     }

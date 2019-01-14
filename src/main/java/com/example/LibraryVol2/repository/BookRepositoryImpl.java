@@ -63,4 +63,11 @@ public class BookRepositoryImpl implements BookRepository<BookDto> {
         List<Map<String, Object>> result = jdbcOperations.queryForList(sql, new Object[]{configDto.getPage() * 10});
         return result;
     }
+
+    @Override
+    public void deleteBook(BooksEntity booksEntity) {
+        String sql = "DELETE FROM books WHERE idbooks = ?";
+        Object[] params = new Object[]{booksEntity.getIdbooks()};
+        jdbcOperations.update(sql, params);
+    }
 }

@@ -21,7 +21,6 @@ $(document).ready(function () {
                     page: parseInt($("#pageOfBooks").val())
                 }),
                 success: function (result) {
-                    console.log(result);
                     if (result.length == 0 && $("#pageOfBooks").val() != 0) {
                         var count = parseInt($("#pageOfBooks").val()) - 1;
                         $("#pageOfBooks").val(count);
@@ -33,6 +32,7 @@ $(document).ready(function () {
                         for (var j = 0; j < cols; j++) {
                             $('#row' + i + '').append('<td id="' + j + '">' + result[i][j] + '</td>');
                         }
+                        $('#row' + i + '').append('<td id="' + j + '"><button id="button'+ j +'">Удалить эту книгу</button></td>');
                         $('#allBooksBody').append('</tr>')
                     }
                 },
@@ -45,4 +45,34 @@ $(document).ready(function () {
     }
 
     getAllBooks();
+
+    $('#allBooksBody').on('click', 'tr', function () {
+        var bookId = $(this).closest('tr').children('td:first').text();
+        $.ajax({
+            method: 'DELETE',
+            url: '/admin/deleteBook/' + bookId
+        }).fail(function (error) {
+            console.log(error);
+        }).done(function (data) {
+            alert("Book with id " + bookId);
+            getAllBooks();
+        })
+    });
+
+    $("#leftButton").click(function () {
+            var value = parseInt($("#pageOfBooks").val()) - 1;
+            $("#pageOfBooks").val(value);
+            if ($("#pageOfBooks").val() < 0) {
+                $("#pageOfBooks").val(0);
+            }
+            getAllBooks();
+        }
+    );
+
+    $("#rightButton").click(function () {
+            var value = parseInt($("#pageOfBooks").val()) + 1;
+            $("#pageOfBooks").val(value);
+            getAllBooks();
+        }
+    );
 });

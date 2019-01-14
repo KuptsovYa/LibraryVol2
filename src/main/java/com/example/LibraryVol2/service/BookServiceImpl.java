@@ -4,9 +4,8 @@ import com.example.LibraryVol2.dto.BookDto;
 import com.example.LibraryVol2.dto.ConfigDto;
 import com.example.LibraryVol2.entity.BooksEntity;
 import com.example.LibraryVol2.repository.BookRepository;
-import org.apache.logging.log4j.*;
-import static java.lang.Math.toIntExact;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +37,11 @@ public class BookServiceImpl implements BookService {
         logger.info("Getting all books on user profile");
         int cols = 3, cnt = 0;
         try {
-            if(configDto.isPersonal()){
+            if (configDto.isPersonal()) {
                 configDto.setUserId(bookRepository.getIdByName(configDto.getUserName()));
                 List<Map<String, Object>> result = bookRepository.getPersonalBooks(configDto);
                 return createArrOfBooks(result, cols, cnt);
-            }else {
+            } else {
                 List<Map<String, Object>> result = bookRepository.getAllBooks(configDto);
                 return createArrOfBooks(result, cols, cnt);
             }
@@ -76,13 +75,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public String getBookContent(BookDto bookDTO) {
         try {
-            logger.info("trying to take book with id "+ bookDTO.getBookId() +" content");
+            logger.info("trying to take book with id " + bookDTO.getBookId() + " content");
             BooksEntity booksEntity = new BooksEntity();
             booksEntity.setIdbooks(bookDTO.getBookId());
             String result = bookRepository.getContentByTitle(booksEntity);
             logger.info("book has taken successfully");
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("book with id: " + bookDTO.getBookId() + " not found");
             return "";
         }
@@ -90,14 +89,27 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String[][] getAllBooksImproper(ConfigDto configDto) {
-        logger.info("getting all books with improper words " + configDto.toString());
+        logger.info("getting all books with improper words from page: " + configDto.getPage());
         int cols = 4, cnt = 0;
-        try{
+        try {
             List<Map<String, Object>> result = bookRepository.getAllBooksImproper(configDto);
             return createArrOfBooks(result, cols, cnt);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getStackTrace());
         }
         return new String[0][0];
+    }
+
+    @Override
+    public BookDto deleteBook(BookDto bookDto) {
+        logger.info("deleting book with id " + bookDto.getBookId());
+        try {
+            BooksEntity booksEntity = new BooksEntity();
+            booksEntity.setIdbooks(bookDto.getBookId());
+            bookRepository.deleteBook(booksEntity);
+        } catch (Exception e) {
+            logger.error("error when deleting book with id " + bookDto.getBookId() + " trace " + e.getMessage());
+        }
+        return bookDto;
     }
 }
